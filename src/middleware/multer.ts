@@ -43,7 +43,7 @@ const fileFilter = (req: Request, file: any, cb: any) => {
 };
 
 const limits = {
-  fileSize: 1024 * 1024,
+  fileSize: 5120 * 5120,
 };
 
 export const uploadProductFile = multer({

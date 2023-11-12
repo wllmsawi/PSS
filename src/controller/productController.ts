@@ -34,6 +34,7 @@ export const createProductController = async (
       category_id,
       product_price,
       product_image,
+      product_description,
     } = req.body;
     const newCategoryId = Number(category_id);
     const newProductPrice = Number(product_price);
@@ -41,7 +42,8 @@ export const createProductController = async (
       product_name,
       newCategoryId,
       newProductPrice,
-      req?.file?.filename || ""
+      req?.file?.filename || "",
+      product_description
     );
     return res.status(200).json({
       message: "success",
@@ -74,8 +76,13 @@ export const updateProductController = async (
   try {
     const { id } = req.params;
     const newId = Number(id);
-    const { product_name, category_id, product_price } =
-      req.body;
+    const {
+      product_name,
+      category_id,
+      product_price,
+      product_image,
+      product_description,
+    } = req.body;
     const newCategoryId = Number(category_id);
     const newProductPrice = Number(product_price);
     const result = await updateProductService(
@@ -83,7 +90,8 @@ export const updateProductController = async (
       product_name,
       newCategoryId || category_id,
       newProductPrice || product_price,
-      req?.file?.filename || ""
+      req?.file?.filename || product_image,
+      product_description
     );
     return res.status(200).json({
       message: "success",

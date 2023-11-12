@@ -24,7 +24,8 @@ export const createProductQuery = async (
   product_name: string,
   category_id: number,
   product_price: number,
-  product_image: string
+  product_image: string,
+  product_description: string
 ) => {
   try {
     const res = await prisma.product.create({
@@ -33,6 +34,7 @@ export const createProductQuery = async (
         category_id,
         product_price,
         product_image,
+        product_description,
       },
     });
   } catch (err) {
@@ -58,7 +60,8 @@ export const updateProductQuery = async (
   product_name: string,
   category_id: number,
   product_price: number,
-  product_image: string
+  product_image: string,
+  product_description: string
 ) => {
   try {
     const res = await prisma.product.updateMany({
@@ -70,6 +73,7 @@ export const updateProductQuery = async (
         category_id,
         product_price,
         product_image,
+        product_description,
       },
     });
     return res;
