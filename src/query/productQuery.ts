@@ -39,3 +39,41 @@ export const createProductQuery = async (
     throw err;
   }
 };
+
+export const getAllProductQuery = async () => {
+  try {
+    const res = await prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateProductQuery = async (
+  id: number,
+  product_name: string,
+  category_id: number,
+  product_price: number,
+  product_image: string
+) => {
+  try {
+    const res = await prisma.product.updateMany({
+      where: {
+        id: id,
+      },
+      data: {
+        product_name,
+        category_id,
+        product_price,
+        product_image,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
