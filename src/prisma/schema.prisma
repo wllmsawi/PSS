@@ -19,10 +19,48 @@ model User {
   role_id   Int
   gender    Gender  @relation(fields: [gender_id], references: [id])
   gender_id Int  
+  transaction Transaction[]
 }
 
 model Gender {
   id   Int     @id @default(autoincrement())
   gender_name String  
   user User[]
+}
+
+model Transaction {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  date      String    
+  total_price   Int
+  total_qty     Int
+  payment_method Payment_Method  @relation(fields: [payment_method_id], references: [id])
+  payment_method_id     Int
+  payment_amount    Int
+  customer Customer   @relation(fields: [customer_id], references: [id])
+  customer_id   Int
+  payment_change  Int
+  transaction_detail Transaction_Detail[]
+}
+
+model Payment_Method {
+  id        Int     @id @default(autoincrement())
+  method_name       String
+  transaction Transaction[]
+}
+
+model Customer {
+  id      Int       @id @default(autoincrement())
+  customer_name     String
+  transaction Transaction[]
+}
+
+model Transaction_Detail {
+  id  Int     @id @default(autoincrement())
+  transaction Transaction @relation(fields: [transaction_id], references: [id])
+  transaction_id  Int
+  product_id      Int
+  qty     Int
+  total_price     Int
 }
