@@ -16,13 +16,21 @@ model User {
   address   String?
   email     String @unique
   password  String
+  role      Role    @relation(fields: [role_id], references: [id])
   role_id   Int
   gender    Gender  @relation(fields: [gender_id], references: [id])
   gender_id Int  
+  avatar String
 }
 
 model Gender {
   id   Int     @id @default(autoincrement())
   gender_name String  
   user User[]
+}
+
+model Role{
+id Int @id @default(autoincrement())
+role_name String
+user User[]
 }
