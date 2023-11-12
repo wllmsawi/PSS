@@ -26,12 +26,9 @@ export const createProductController = async (
   req: Request,
   res: Response
 ) => {
-  const {
-    product_name,
-    category_id,
-    product_price,
-    product_image,
-  } = req.body;
+  const { product_name, category_id, product_price } =
+    req.body;
+
   const newCategoryId = Number(category_id);
   const newProductPrice = Number(product_price);
   try {
@@ -39,7 +36,7 @@ export const createProductController = async (
       product_name,
       newCategoryId,
       newProductPrice,
-      product_image
+      req?.file?.filename || ""
     );
     return res.status(200).json({
       message: "success",
