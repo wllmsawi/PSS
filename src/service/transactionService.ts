@@ -1,4 +1,9 @@
-import { createTransactionQuery } from "../query/transactionQuery";
+import {
+  createTransactionQuery,
+  findTransactionQuery,
+  getAllTransactionQuery,
+  updateTransactionQuery,
+} from "../query/transactionQuery";
 
 export const createTransactionService = async (
   user_id: number,
@@ -19,7 +24,54 @@ export const createTransactionService = async (
       payment_method_id,
       payment_amount,
       customer_id,
-      payment_change,
+      payment_change
+    );
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const findTransactionService = async (id: number) => {
+  try {
+    const res = await findTransactionQuery(id);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getAllTransactionService = async () => {
+  try {
+    const res = await getAllTransactionQuery();
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateTransactionService = async (
+  id: number,
+  user_id: number,
+  date: string,
+  total_price: number,
+  total_qty: number,
+  payment_method_id: number,
+  payment_amount: number,
+  customer_id: number,
+  payment_change: number
+) => {
+  try {
+    const res = await updateTransactionQuery(
+      id,
+      user_id,
+      date,
+      total_price,
+      total_qty,
+      payment_method_id,
+      payment_amount,
+      customer_id,
+      payment_change
     );
     return res;
   } catch (err) {

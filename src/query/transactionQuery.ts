@@ -31,11 +31,17 @@ export const createTransactionQuery = async (
   }
 };
 
-const findTransactionQuery = async (transaction_id: number) => {
+export const findTransactionQuery = async (id: number) => {
   try {
     const res = await prisma.transaction.findUnique({
       where: {
-        id: transaction_id,
+        id: id,
+      },
+      include: {
+        payment_method: true,
+        transaction_detail: true,
+        customer: true,
+        user: true,
       },
     });
     return res;
@@ -44,7 +50,7 @@ const findTransactionQuery = async (transaction_id: number) => {
   }
 };
 
-const getAllTransactionQuery = async () => {
+export const getAllTransactionQuery = async () => {
   try {
     const res = await prisma.transaction.findMany();
     return res;
@@ -53,8 +59,8 @@ const getAllTransactionQuery = async () => {
   }
 };
 
-const updateTransactionQuery = async (
-  transaction_id: number,
+export const updateTransactionQuery = async (
+  id: number,
   user_id: number,
   date: string,
   total_price: number,
@@ -67,7 +73,7 @@ const updateTransactionQuery = async (
   try {
     const res = await prisma.transaction.updateMany({
       where: {
-        id: transaction_id,
+        id: id,
       },
       data: {
         user_id: user_id,

@@ -32,7 +32,7 @@ model Transaction {
   id        Int       @id @default(autoincrement())
   user      User      @relation(fields: [user_id], references: [id])
   user_id   Int
-  date      String    
+  date      DateTime   @default(now())    
   total_price   Int
   total_qty     Int
   payment_method Payment_Method  @relation(fields: [payment_method_id], references: [id])
