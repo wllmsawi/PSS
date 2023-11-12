@@ -23,6 +23,9 @@ app.use(
 
 const port: number = Number(process.env.PORT) || 8000;
 
+const productRoute = require("./route/productRoute");
+app.use("/product", productRoute);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
