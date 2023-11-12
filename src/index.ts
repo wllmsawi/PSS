@@ -23,6 +23,9 @@ app.use(
 
 const port: number = Number(process.env.PORT) || 8000;
 
+const transactionRoute = require("./route/transactionRoute");
+app.use("/transaction", transactionRoute);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
