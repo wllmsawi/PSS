@@ -17,5 +17,6 @@ router.post(
   uploadProductFile,
   createProductController
 );
+router.patch("/:id", updateProductController);
 
 export = router;

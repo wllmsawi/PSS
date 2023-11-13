@@ -116,7 +116,7 @@ export const updateProductController = async (
     const newProductStatus = Boolean(product_status);
     const result = await updateProductService(
       newId,
-      product_name,
+      product_name || product_name,
       newProductGroupId || product_group_id,
       Number(product_category_id) || product_category_id,
       newProductPrice || product_price,
@@ -124,6 +124,7 @@ export const updateProductController = async (
       product_description || product_description,
       newProductStatus || product_status
     );
+    console.log("product_name", product_name);
     return res.status(200).json({
       message: "success",
       data: result,
