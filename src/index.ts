@@ -32,6 +32,9 @@ app.use("/cart", cartRoute);
 const transactionDetailRoute = require("./route/transactionDetailRoutes");
 app.use("/transaction-detail", transactionDetailRoute)
 
+const productRoute = require("./route/productRoute");
+app.use("/product", productRoute);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
