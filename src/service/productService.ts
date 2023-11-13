@@ -33,9 +33,12 @@ export const createProductService = async (
   }
 };
 
-export const getAllProductService = async () => {
+export const getAllProductService = async (
+  page: number,
+  pageSize: number
+) => {
   try {
-    const res = await getAllProductQuery();
+    const res = await getAllProductQuery(page, pageSize);
     return res;
   } catch (err) {
     throw err;

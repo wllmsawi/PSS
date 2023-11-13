@@ -42,9 +42,16 @@ export const createProductQuery = async (
   }
 };
 
-export const getAllProductQuery = async () => {
+export const getAllProductQuery = async (
+  page: number,
+  pageSize: number
+) => {
   try {
+    const skip = (page - 1) * pageSize;
+    const take = pageSize;
     const res = await prisma.product.findMany({
+      skip: skip,
+      take: take,
       include: {
         category: true,
       },

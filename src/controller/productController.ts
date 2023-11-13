@@ -58,8 +58,14 @@ export const getAllProductController = async (
   req: Request,
   res: Response
 ) => {
+  const { page, pageSize } = req.query;
+  const newPage = Number(page);
+  const newPageSize = Number(pageSize);
   try {
-    const result = await getAllProductService();
+    const result = await getAllProductService(
+      newPage || 0,
+      newPageSize || 0
+    );
     return res.status(200).json({
       message: "Find all product success",
       result: result,
