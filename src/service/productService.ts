@@ -3,6 +3,7 @@ import {
   getAllProductQuery,
   findProductQuery,
 } from "../query/productQuery";
+
 export const getProductService = async (id: number) => {
   try {
     const res = await getProductQuery(id);
@@ -33,12 +34,12 @@ export const getAllProductService = async (
 
 export const findProductService = async (
   product_name: string | null = null,
-  category_id: number | null = null
+  product_group_id: number | null = null
 ) => {
   try {
     const res = await findProductQuery(
       product_name,
-      category_id
+      product_group_id
     );
     return res;
   } catch (err) {

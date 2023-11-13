@@ -10,7 +10,7 @@ export const getProductQuery = async (
         id: id,
       },
       include: {
-        category: true,
+        product_group: true,
       },
     });
     return res;
@@ -33,7 +33,7 @@ export const getAllProductQuery = async (
       skip,
       take,
       include: {
-        category: true,
+        product_group: true,
       },
       orderBy: {
         [sortField]: sortOrder as any,
@@ -54,16 +54,14 @@ export const findProductQuery = async (
     if (product_name != "undefined")
       filter.product_name = product_name;
     if (category_id) filter.category_id = category_id;
-    console.log("---", filter);
     const res = await prisma.product.findMany({
       include: {
-        category: true,
+        product_group: true,
       },
       where: {
         ...filter,
       },
     });
-    console.log("res", res);
     return res;
   } catch (err) {
     throw err;

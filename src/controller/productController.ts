@@ -11,7 +11,6 @@ export const getProductController = async (
 ) => {
   const { id } = req.params;
   const newId = Number(id);
-  console.log("newId", typeof id);
   try {
     const result = await getProductService(newId);
     return res.status(200).json({
