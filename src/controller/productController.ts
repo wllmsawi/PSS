@@ -3,6 +3,8 @@ import {
   getProductService,
   getAllProductService,
   findProductService,
+  createProductService,
+  updateProductService,
 } from "../service/productService";
 
 export const getProductController = async (
@@ -52,6 +54,71 @@ export const findProductController = async (
     const result = await findProductService(
       String(product_name),
       Number(category_id)
+    );
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createProductController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const {
+      product_name,
+      category_id,
+      product_price,
+      product_description,
+    } = req.body;
+    const newCategoryId = Number(category_id);
+    const newProductPrice = Number(product_price);
+    const result = await createProductService(
+      product_name,
+      newCategoryId,
+      newProductPrice,
+      req?.file?.filename || "",
+      product_description
+    );
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateProductController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const newId = Number(id);
+    const {
+      product_name,
+      product_group_id,
+      product_price,
+      product_image,
+      product_description,
+      product_status,
+    } = req.body;
+    const newProductGroupId = Number(product_group_id);
+    const newProductPrice = Number(product_price);
+    const newProductStatus = Boolean(product_status);
+    const result = await updateProductService(
+      newId,
+      product_name,
+      newProductGroupId || product_group_id,
+      newProductPrice || product_price,
+      req?.file?.filename || product_image,
+      product_description || product_description,
+      newProductStatus || product_status
     );
     return res.status(200).json({
       message: "success",

@@ -67,3 +67,60 @@ export const findProductQuery = async (
     throw err;
   }
 };
+
+export const createProductQuery = async (
+  product_name: string,
+  product_group_id: number,
+  product_price: number,
+  product_image: string,
+  product_description: string
+) => {
+  try {
+    const res = await prisma.product.create({
+      data: {
+        product_name,
+        product_group_id,
+        product_price,
+        product_image,
+        product_description,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateProductQuery = async (
+  id: number,
+  product_name: string,
+  product_group_id: number,
+  product_price: number,
+  product_image: string,
+  product_description: string,
+  product_status: boolean
+) => {
+  try {
+    const filter: any = {};
+    if (product_name != "undefined")
+      filter.product_name = product_name;
+    if (product_group_id)
+      filter.product_group_id = product_group_id;
+    const res = await prisma.product.updateMany({
+      where: {
+        id: id,
+      },
+      data: {
+        product_name,
+        product_group_id,
+        product_price,
+        product_image,
+        product_description,
+        product_status,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

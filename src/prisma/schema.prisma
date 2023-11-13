@@ -30,15 +30,16 @@ model Gender {
 model Product {
   id Int    @id @default(autoincrement())
   product_name String
-  category Category @relation(fields: [category_id], references: [id])
-  category_id Int
+  product_group Product_Group @relation(fields: [product_group_id], references: [id])
+  product_group_id Int
   product_price  Int
   product_image String
   product_description String?
+  product_status Boolean @default(true)
 }
 
-model Category {
+model Product_Group {
   id Int @id @default(autoincrement())
-  category_name String
+  product_group_name String
   product Product[]
 }
