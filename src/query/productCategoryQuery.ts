@@ -15,7 +15,7 @@ export const createProductCategoryQuery = async (
   }
 };
 
-export const updateProductCategory = async (
+export const updateProductCategoryQuery = async (
   id: number,
   product_category_name: string
 ) => {
