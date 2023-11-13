@@ -50,8 +50,8 @@ export const getAllProductQuery = async (
     const skip = (page - 1) * pageSize;
     const take = pageSize;
     const res = await prisma.product.findMany({
-      skip: skip,
-      take: take,
+      skip,
+      take,
       include: {
         category: true,
       },
