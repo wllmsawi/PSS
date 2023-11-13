@@ -27,11 +27,13 @@ export const getAllProductController = async (
   req: Request,
   res: Response
 ) => {
-  const { page, pageSize } = req.body;
+  const { page, pageSize, sortField, sortOrder } = req.body;
   try {
     const result = await getAllProductService(
       page,
-      pageSize
+      pageSize,
+      sortField || "product_name",
+      sortOrder || "asc"
     );
     return res.status(200).json({
       message: "Find all product success",

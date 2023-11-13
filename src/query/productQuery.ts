@@ -22,7 +22,9 @@ export const getProductQuery = async (
 
 export const getAllProductQuery = async (
   page: number,
-  pageSize: number
+  pageSize: number,
+  sortField: string,
+  sortOrder: string
 ) => {
   try {
     const skip = (page - 1) * pageSize;
@@ -32,6 +34,9 @@ export const getAllProductQuery = async (
       take,
       include: {
         category: true,
+      },
+      orderBy: {
+        [sortField]: sortOrder as any,
       },
     });
     return res;

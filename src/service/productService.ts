@@ -14,10 +14,17 @@ export const getProductService = async (id: number) => {
 
 export const getAllProductService = async (
   page: number,
-  pageSize: number
+  pageSize: number,
+  sortField: string,
+  sortOrder: string
 ) => {
   try {
-    const res = await getAllProductQuery(page, pageSize);
+    const res = await getAllProductQuery(
+      page,
+      pageSize,
+      sortField,
+      sortOrder
+    );
     return res;
   } catch (err) {
     throw err;
