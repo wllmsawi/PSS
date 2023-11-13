@@ -14,3 +14,22 @@ export const createProductCategoryQuery = async (
     throw err;
   }
 };
+
+export const updateProductCategory = async (
+  id: number,
+  product_category_name: string
+) => {
+  try {
+    const res = await prisma.product_Category.update({
+      where: {
+        id,
+      },
+      data: {
+        product_category_name,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
