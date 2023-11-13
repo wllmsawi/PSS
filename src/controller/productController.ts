@@ -71,15 +71,17 @@ export const createProductController = async (
   try {
     const {
       product_name,
-      category_id,
+      product_group_id,
+      product_category_id,
       product_price,
       product_description,
     } = req.body;
-    const newCategoryId = Number(category_id);
+    const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
     const result = await createProductService(
       product_name,
-      newCategoryId,
+      newProductGroupId,
+      Number(product_category_id),
       newProductPrice,
       req?.file?.filename || "",
       product_description
@@ -103,6 +105,7 @@ export const updateProductController = async (
     const {
       product_name,
       product_group_id,
+      product_category_id,
       product_price,
       product_image,
       product_description,
@@ -115,6 +118,7 @@ export const updateProductController = async (
       newId,
       product_name,
       newProductGroupId || product_group_id,
+      Number(product_category_id) || product_category_id,
       newProductPrice || product_price,
       req?.file?.filename || product_image,
       product_description || product_description,
