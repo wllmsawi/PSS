@@ -24,7 +24,7 @@ CREATE TABLE `Gender` (
 CREATE TABLE `Product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `product_name` VARCHAR(191) NOT NULL,
-    `group_id` INTEGER NOT NULL,
+    `product_group_id` INTEGER NOT NULL,
     `product_price` INTEGER NOT NULL,
     `product_image` VARCHAR(191) NOT NULL,
     `product_description` VARCHAR(191) NULL,
@@ -34,9 +34,9 @@ CREATE TABLE `Product` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Group` (
+CREATE TABLE `Product_Group` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `group_name` VARCHAR(191) NOT NULL,
+    `product_group_name` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -45,4 +45,4 @@ CREATE TABLE `Group` (
 ALTER TABLE `User` ADD CONSTRAINT `User_gender_id_fkey` FOREIGN KEY (`gender_id`) REFERENCES `Gender`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Product` ADD CONSTRAINT `Product_group_id_fkey` FOREIGN KEY (`group_id`) REFERENCES `Group`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Product` ADD CONSTRAINT `Product_product_group_id_fkey` FOREIGN KEY (`product_group_id`) REFERENCES `Product_Group`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

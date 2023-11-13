@@ -10,7 +10,7 @@ export const getProductQuery = async (
         id: id,
       },
       include: {
-        category: true,
+        product_group: true,
       },
     });
     return res;
@@ -22,17 +22,16 @@ export const getProductQuery = async (
 
 export const createProductQuery = async (
   product_name: string,
-  category_id: number,
+  product_group_id: number,
   product_price: number,
   product_image: string,
   product_description: string
-  // product_status: boolean
 ) => {
   try {
     const res = await prisma.product.create({
       data: {
         product_name,
-        category_id,
+        product_group_id,
         product_price,
         product_image,
         product_description,
@@ -55,7 +54,7 @@ export const getAllProductQuery = async (
       skip,
       take,
       include: {
-        category: true,
+        product_group: true,
       },
     });
     return res;
@@ -67,7 +66,7 @@ export const getAllProductQuery = async (
 export const updateProductQuery = async (
   id: number,
   product_name: string,
-  category_id: number,
+  product_group_id: number,
   product_price: number,
   product_image: string,
   product_description: string,
@@ -80,7 +79,7 @@ export const updateProductQuery = async (
       },
       data: {
         product_name,
-        category_id,
+        product_group_id,
         product_price,
         product_image,
         product_description,

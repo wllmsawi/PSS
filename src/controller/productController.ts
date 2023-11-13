@@ -81,13 +81,13 @@ export const updateProductController = async (
     const newId = Number(id);
     const {
       product_name,
-      category_id,
+      product_group_id,
       product_price,
       product_image,
       product_description,
       product_status,
     } = req.body;
-    const newCategoryId = Number(category_id);
+    const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
     const newProductStatus = Boolean(product_status);
     console.log("---", typeof product_status);
@@ -95,7 +95,7 @@ export const updateProductController = async (
     const result = await updateProductService(
       newId,
       product_name,
-      newCategoryId || category_id,
+      newProductGroupId || product_group_id,
       newProductPrice || product_price,
       req?.file?.filename || product_image,
       product_description || product_description,

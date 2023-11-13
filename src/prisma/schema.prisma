@@ -30,7 +30,7 @@ model Gender {
 model Product {
   id Int    @id @default(autoincrement())
   product_name String
-  product_group ProductGroup @relation(fields: [product_group_id], references: [id])
+  product_group Product_Group @relation(fields: [product_group_id], references: [id])
   product_group_id Int
   product_price  Int
   product_image String
@@ -38,7 +38,7 @@ model Product {
   product_status Boolean @default(true)
 }
 
-model ProductGroup {
+model Product_Group {
   id Int @id @default(autoincrement())
   product_group_name String
   product Product[]

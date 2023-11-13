@@ -50,7 +50,7 @@ export const getAllProductService = async (
 export const updateProductService = async (
   id: number,
   product_name: string,
-  category_id: number,
+  product_group_id: number,
   product_price: number,
   product_image: string,
   product_description: string,
@@ -62,7 +62,7 @@ export const updateProductService = async (
     const res = await updateProductQuery(
       id,
       product_name,
-      category_id,
+      product_group_id,
       product_price,
       product_image,
       product_description,
