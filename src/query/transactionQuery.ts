@@ -9,6 +9,7 @@ export const createTransactionQuery = async (
   payment_method_id: number,
   payment_amount: number,
   customer_id: number,
+  customer_name: string,
   payment_change: number,
   total_price_ppn: number
 ): Promise<any> => {
@@ -21,6 +22,7 @@ export const createTransactionQuery = async (
         payment_method_id: payment_method_id,
         payment_amount: payment_amount,
         customer_id: customer_id,
+        customer_name: customer_name,
         payment_change: payment_change,
         total_price_ppn: total_price_ppn,
       },

@@ -12,6 +12,7 @@ export const createTransactionService = async (
   payment_method_id: number,
   payment_amount: number,
   customer_id: number,
+  customer_name: string,
   payment_change: number,
   total_price_ppn: number
 ) => {
@@ -23,7 +24,8 @@ export const createTransactionService = async (
       payment_method_id,
       payment_amount,
       customer_id,
-      payment_amount - total_price,
+      customer_name,
+      (payment_change = payment_amount - total_price),
       total_price_ppn
     );
     return res;

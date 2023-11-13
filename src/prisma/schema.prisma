@@ -40,6 +40,7 @@ model Transaction {
   payment_amount    Int
   customer Customer   @relation(fields: [customer_id], references: [id])
   customer_id   Int
+  customer_name  String?
   payment_change  Int?
   total_price_ppn   Int?
   transaction_detail Transaction_Detail[]
@@ -53,7 +54,7 @@ model Payment_Method {
 
 model Customer {
   id      Int       @id @default(autoincrement())
-  customer_name     String
+  customer_name     String?
   transaction Transaction[]
 }
 
