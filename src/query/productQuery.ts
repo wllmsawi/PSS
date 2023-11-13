@@ -62,7 +62,6 @@ export const findProductQuery = async (
         ...filter,
       },
     });
-    console.log("res", res);
     return res;
   } catch (err) {
     throw err;
