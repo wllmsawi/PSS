@@ -24,7 +24,7 @@ export const createTransactionService = async (
       payment_method_id,
       payment_amount,
       customer_id,
-      payment_change
+      payment_amount - total_price
     );
     return res;
   } catch (err) {
