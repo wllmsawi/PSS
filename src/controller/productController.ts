@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import {
-  createProductService,
   getProductService,
   getAllProductService,
+  findProductService,
+  createProductService,
   updateProductService,
 } from "../service/productService";
-import { boolean } from "yup";
 
 export const getProductController = async (
   req: Request,
@@ -15,6 +15,46 @@ export const getProductController = async (
   const newId = Number(id);
   try {
     const result = await getProductService(newId);
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getAllProductController = async (
+  req: Request,
+  res: Response
+) => {
+  const { page, pageSize, sortField, sortOrder } = req.body;
+  try {
+    const result = await getAllProductService(
+      page,
+      pageSize,
+      sortField || "product_name",
+      sortOrder || "asc"
+    );
+    return res.status(200).json({
+      message: "Find all product success",
+      result: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const findProductController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { product_name, category_id } = req.query;
+    const result = await findProductService(
+      String(product_name),
+      Number(category_id)
+    );
     return res.status(200).json({
       message: "success",
       data: result,
@@ -53,25 +93,6 @@ export const createProductController = async (
   }
 };
 
-export const getAllProductController = async (
-  req: Request,
-  res: Response
-) => {
-  const { page, pageSize } = req.body;
-  try {
-    const result = await getAllProductService(
-      page,
-      pageSize
-    );
-    return res.status(200).json({
-      message: "Find all product success",
-      result: result,
-    });
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const updateProductController = async (
   req: Request,
   res: Response
@@ -90,8 +111,6 @@ export const updateProductController = async (
     const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
     const newProductStatus = Boolean(product_status);
-    console.log("---", typeof product_status);
-
     const result = await updateProductService(
       newId,
       product_name,
