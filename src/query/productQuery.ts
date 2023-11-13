@@ -20,28 +20,6 @@ export const getProductQuery = async (
   }
 };
 
-export const createProductQuery = async (
-  product_name: string,
-  category_id: number,
-  product_price: number,
-  product_image: string,
-  product_description: string
-) => {
-  try {
-    const res = await prisma.product.create({
-      data: {
-        product_name,
-        category_id,
-        product_price,
-        product_image,
-        product_description,
-      },
-    });
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const getAllProductQuery = async (
   page: number,
   pageSize: number
@@ -62,27 +40,25 @@ export const getAllProductQuery = async (
   }
 };
 
-export const updateProductQuery = async (
-  id: number,
-  product_name: string,
-  category_id: number,
-  product_price: number,
-  product_image: string,
-  product_description: string
+export const findProductQuery = async (
+  product_name: string | null = null,
+  category_id: number | null = null
 ) => {
   try {
-    const res = await prisma.product.updateMany({
-      where: {
-        id: id,
+    const filter: any = {};
+    if (product_name != "undefined")
+      filter.product_name = product_name;
+    if (category_id) filter.category_id = category_id;
+    console.log("---", filter);
+    const res = await prisma.product.findMany({
+      include: {
+        category: true,
       },
-      data: {
-        product_name,
-        category_id,
-        product_price,
-        product_image,
-        product_description,
+      where: {
+        ...filter,
       },
     });
+    console.log("res", res);
     return res;
   } catch (err) {
     throw err;
