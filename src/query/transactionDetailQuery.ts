@@ -27,8 +27,11 @@ export const createtransactionDetailQuery = async (
 export const getAllTransactionDetailQuery = async () => {
   try {
     const res = await prisma.transaction_Detail.findMany({
-      include: {},
+      include: {
+        product : true
+      },
     });
+    return res;
   } catch (err) {
     throw err;
   }

@@ -61,7 +61,8 @@ model Transaction_Detail {
   id  Int     @id @default(autoincrement())
   transaction Transaction @relation(fields: [transaction_id], references: [id])
   transaction_id  Int
-  product_id      Int
+  product Product  @relation(fields: [product_id], references: [id])
+  product_id  Int
   qty     Int
   total_price     Int?
   cart Cart @relation(fields: [cart_id], references: [id])
@@ -85,6 +86,7 @@ model Product {
   product_image String
   product_description String?
   product_status Boolean @default(true)
+  transaction_detail Transaction_Detail[]
 }
 
 model Product_Group {

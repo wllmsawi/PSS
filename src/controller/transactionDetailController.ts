@@ -1,4 +1,7 @@
-import { createTransactionDetailService } from "../service/transactionDetailService";
+import {
+  createTransactionDetailService,
+  getAllTransactionDetailService,
+} from "../service/transactionDetailService";
 import { Request, Response } from "express";
 
 export const createTransactionDetailController = async (
@@ -19,6 +22,21 @@ export const createTransactionDetailController = async (
       message: "Create Transaction Detail Succes",
       data: result,
     });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getAllTransactionDetailController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const result = await getAllTransactionDetailService();
+    return res.status(200).json({
+      message: "Get All Transaction Detail Success",
+      data: result,
+    })
   } catch (err) {
     throw err;
   }

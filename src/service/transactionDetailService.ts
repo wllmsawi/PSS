@@ -1,4 +1,7 @@
-import { createtransactionDetailQuery } from "../query/transactionDetailQuery";
+import {
+  createtransactionDetailQuery,
+  getAllTransactionDetailQuery,
+} from "../query/transactionDetailQuery";
 
 export const createTransactionDetailService = async (
   transaction_id: number,
@@ -15,6 +18,15 @@ export const createTransactionDetailService = async (
       total_price,
       cart_id
     );
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getAllTransactionDetailService = async () => {
+  try {
+    const res = await getAllTransactionDetailQuery();
     return res;
   } catch (err) {
     throw err;
