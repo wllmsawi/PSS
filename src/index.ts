@@ -23,6 +23,15 @@ app.use(
 
 const port: number = Number(process.env.PORT) || 8000;
 
+const transactionRoute = require("./route/transactionRoute");
+app.use("/transaction", transactionRoute);
+
+const cartRoute = require("./route/cartRoute");
+app.use("/cart", cartRoute);
+
+const transactionDetailRoute = require("./route/transactionDetailRoutes");
+app.use("/transaction-detail", transactionDetailRoute)
+
 const productRoute = require("./route/productRoute");
 app.use("/product", productRoute);
 

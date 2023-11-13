@@ -19,12 +19,60 @@ model User {
   role_id   Int
   gender    Gender  @relation(fields: [gender_id], references: [id])
   gender_id Int  
+  transaction Transaction[]
 }
 
 model Gender {
   id   Int     @id @default(autoincrement())
   gender_name String  
   user User[]
+}
+
+model Transaction {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  date      DateTime   @default(now())    
+  total_price   Int
+  total_qty     Int
+  payment_method Payment_Method  @relation(fields: [payment_method_id], references: [id])
+  payment_method_id     Int
+  payment_amount    Int
+  customer Customer   @relation(fields: [customer_id], references: [id])
+  customer_id   Int
+  payment_change  Int?
+  total_price_ppn   Int?
+  transaction_detail Transaction_Detail[]
+}
+
+model Payment_Method {
+  id        Int     @id @default(autoincrement())
+  method_name       String
+  transaction Transaction[]
+}
+
+model Customer {
+  id      Int       @id @default(autoincrement())
+  customer_name     String
+  transaction Transaction[]
+}
+
+model Transaction_Detail {
+  id  Int     @id @default(autoincrement())
+  transaction Transaction @relation(fields: [transaction_id], references: [id])
+  transaction_id  Int
+  product Product  @relation(fields: [product_id], references: [id])
+  product_id  Int
+  qty     Int
+  total_price     Int?
+  cart Cart @relation(fields: [cart_id], references: [id])
+  cart_id     Int
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+  customer_name   String
+  transaction_detail     Transaction_Detail[]
 }
 
 model Product {
@@ -38,6 +86,7 @@ model Product {
   product_image String
   product_description String?
   product_status Boolean @default(true)
+  transaction_detail Transaction_Detail[]
 }
 
 model Product_Group {
