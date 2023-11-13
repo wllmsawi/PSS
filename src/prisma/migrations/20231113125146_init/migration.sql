@@ -24,7 +24,7 @@ CREATE TABLE `Gender` (
 CREATE TABLE `Transaction` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `user_id` INTEGER NOT NULL,
-    `date` VARCHAR(191) NOT NULL,
+    `date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `total_price` INTEGER NOT NULL,
     `total_qty` INTEGER NOT NULL,
     `payment_method_id` INTEGER NOT NULL,
@@ -58,6 +58,15 @@ CREATE TABLE `Transaction_Detail` (
     `product_id` INTEGER NOT NULL,
     `qty` INTEGER NOT NULL,
     `total_price` INTEGER NOT NULL,
+    `cart_id` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Cart` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `customer_name` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -76,3 +85,6 @@ ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_customer_id_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_transaction_id_fkey` FOREIGN KEY (`transaction_id`) REFERENCES `Transaction`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `Cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

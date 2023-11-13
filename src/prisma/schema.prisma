@@ -40,7 +40,8 @@ model Transaction {
   payment_amount    Int
   customer Customer   @relation(fields: [customer_id], references: [id])
   customer_id   Int
-  payment_change  Int
+  payment_change  Int?
+  total_price_ppn   Int?
   transaction_detail Transaction_Detail[]
 }
 
