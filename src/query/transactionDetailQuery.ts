@@ -1,0 +1,25 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export const createtransactionDetailQuery = async (
+  transaction_id: number,
+  product_id: number,
+  qty: number,
+  total_price: number,
+  cart_id: number
+) => {
+  try {
+    const res = await prisma.transaction_Detail.create({
+      data: {
+        transaction_id,
+        product_id,
+        qty,
+        total_price,
+        cart_id,
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};

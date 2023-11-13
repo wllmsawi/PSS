@@ -19,14 +19,11 @@ export const createTransactionController = async (
       payment_amount,
       customer_id,
     } = req.body;
-    const newUser_id = Number(user_id);
-    const newTotal_price = Number(total_price);
-    const newTotal_qty = Number(total_qty);
    
     const result = await createTransactionService(
-      newUser_id,
-      newTotal_price,
-      newTotal_qty,
+      user_id,
+      total_price,
+      total_qty,
       payment_method_id,
       payment_amount,
       customer_id,
