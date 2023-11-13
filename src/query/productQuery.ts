@@ -34,6 +34,7 @@ export const getAllProductQuery = async (
       take,
       include: {
         product_group: true,
+        product_category: true,
       },
       orderBy: {
         [sortField]: sortOrder as any,
@@ -57,6 +58,7 @@ export const findProductQuery = async (
     const res = await prisma.product.findMany({
       include: {
         product_group: true,
+        product_category: true,
       },
       where: {
         ...filter,
@@ -71,6 +73,7 @@ export const findProductQuery = async (
 export const createProductQuery = async (
   product_name: string,
   product_group_id: number,
+  product_category_id: number,
   product_price: number,
   product_image: string,
   product_description: string
@@ -80,6 +83,7 @@ export const createProductQuery = async (
       data: {
         product_name,
         product_group_id,
+        product_category_id,
         product_price,
         product_image,
         product_description,
@@ -95,17 +99,13 @@ export const updateProductQuery = async (
   id: number,
   product_name: string,
   product_group_id: number,
+  product_category_id: number,
   product_price: number,
   product_image: string,
   product_description: string,
   product_status: boolean
 ) => {
   try {
-    const filter: any = {};
-    if (product_name != "undefined")
-      filter.product_name = product_name;
-    if (product_group_id)
-      filter.product_group_id = product_group_id;
     const res = await prisma.product.updateMany({
       where: {
         id: id,
@@ -113,6 +113,7 @@ export const updateProductQuery = async (
       data: {
         product_name,
         product_group_id,
+        product_category_id,
         product_price,
         product_image,
         product_description,

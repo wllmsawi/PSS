@@ -79,6 +79,8 @@ model Product {
   product_name String
   product_group Product_Group @relation(fields: [product_group_id], references: [id])
   product_group_id Int
+  product_category Product_Category @relation(fields: [product_category_id], references: [id])
+  product_category_id Int
   product_price  Int
   product_image String
   product_description String?
@@ -88,5 +90,11 @@ model Product {
 model Product_Group {
   id Int @id @default(autoincrement())
   product_group_name String
+  product Product[]
+}
+
+model Product_Category {
+  id Int @id @default(autoincrement())
+  product_category_name String
   product Product[]
 }

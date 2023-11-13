@@ -52,6 +52,7 @@ export const findProductService = async (
 export const createProductService = async (
   product_name: string,
   product_group_id: number,
+  product_category_id: number,
   product_price: number,
   product_image: string,
   product_description: string
@@ -60,6 +61,7 @@ export const createProductService = async (
     const res = await createProductQuery(
       product_name,
       product_group_id,
+      product_category_id,
       product_price,
       product_image,
       product_description
@@ -74,6 +76,7 @@ export const updateProductService = async (
   id: number,
   product_name: string,
   product_group_id: number,
+  product_category_id: number,
   product_price: number,
   product_image: string,
   product_description: string,
@@ -86,6 +89,7 @@ export const updateProductService = async (
       id,
       product_name,
       product_group_id,
+      product_category_id,
       product_price,
       product_image,
       product_description,
