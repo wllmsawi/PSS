@@ -55,7 +55,6 @@ export const createProductService = async (
   product_price: number,
   product_image: string,
   product_description: string
-  // product_status: boolean
 ) => {
   try {
     const res = await createProductQuery(
