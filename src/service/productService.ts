@@ -51,7 +51,7 @@ export const findProductService = async (
 
 export const createProductService = async (
   product_name: string,
-  category_id: number,
+  product_group_id: number,
   product_price: number,
   product_image: string,
   product_description: string
@@ -60,7 +60,7 @@ export const createProductService = async (
   try {
     const res = await createProductQuery(
       product_name,
-      category_id,
+      product_group_id,
       product_price,
       product_image,
       product_description
@@ -92,7 +92,6 @@ export const updateProductService = async (
       product_description,
       product_status
     );
-    console.log("res", res);
     return res;
   } catch (err) {
     throw err;

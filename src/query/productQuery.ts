@@ -101,6 +101,11 @@ export const updateProductQuery = async (
   product_status: boolean
 ) => {
   try {
+    const filter: any = {};
+    if (product_name != "undefined")
+      filter.product_name = product_name;
+    if (product_group_id)
+      filter.product_group_id = product_group_id;
     const res = await prisma.product.updateMany({
       where: {
         id: id,
