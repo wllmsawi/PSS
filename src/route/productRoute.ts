@@ -1,24 +1,13 @@
 import {
   getProductController,
-  createProductController,
   getAllProductController,
-  updateProductController,
+  findProductController,
 } from "../controller/productController";
-import { uploadProductFile } from "../middleware/multer";
 import express from "express";
 const router = express.Router();
 
 router.get("/", getAllProductController);
+router.get("/find/filter", findProductController);
 router.get("/:id", getProductController);
-router.post(
-  "/create",
-  uploadProductFile,
-  createProductController
-);
-router.patch(
-  "/:id",
-  uploadProductFile,
-  updateProductController
-);
 
 export = router;
