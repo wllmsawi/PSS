@@ -19,7 +19,7 @@ export const createTransactionController = async (
       payment_amount,
       customer_id,
     } = req.body;
-   
+
     const result = await createTransactionService(
       user_id,
       total_price,

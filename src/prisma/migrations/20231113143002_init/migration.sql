@@ -30,7 +30,8 @@ CREATE TABLE `Transaction` (
     `payment_method_id` INTEGER NOT NULL,
     `payment_amount` INTEGER NOT NULL,
     `customer_id` INTEGER NOT NULL,
-    `payment_change` INTEGER NOT NULL,
+    `payment_change` INTEGER NULL,
+    `total_price_ppn` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -57,7 +58,7 @@ CREATE TABLE `Transaction_Detail` (
     `transaction_id` INTEGER NOT NULL,
     `product_id` INTEGER NOT NULL,
     `qty` INTEGER NOT NULL,
-    `total_price` INTEGER NOT NULL,
+    `total_price` INTEGER NULL,
     `cart_id` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -67,6 +68,27 @@ CREATE TABLE `Transaction_Detail` (
 CREATE TABLE `Cart` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `customer_name` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Product` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `product_name` VARCHAR(191) NOT NULL,
+    `product_group_id` INTEGER NOT NULL,
+    `product_price` INTEGER NOT NULL,
+    `product_image` VARCHAR(191) NOT NULL,
+    `product_description` VARCHAR(191) NULL,
+    `product_status` BOOLEAN NOT NULL DEFAULT true,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Product_Group` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `product_group_name` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -88,3 +110,6 @@ ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_transaction_
 
 -- AddForeignKey
 ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `Cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Product` ADD CONSTRAINT `Product_product_group_id_fkey` FOREIGN KEY (`product_group_id`) REFERENCES `Product_Group`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -23,3 +23,13 @@ export const createtransactionDetailQuery = async (
     throw err;
   }
 };
+
+export const getAllTransactionDetailQuery = async () => {
+  try {
+    const res = await prisma.transaction_Detail.findMany({
+      include: {},
+    });
+  } catch (err) {
+    throw err;
+  }
+};
