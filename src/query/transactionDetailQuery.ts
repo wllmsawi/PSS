@@ -28,7 +28,7 @@ export const getAllTransactionDetailQuery = async () => {
   try {
     const res = await prisma.transaction_Detail.findMany({
       include: {
-        product : true
+        product: true,
       },
     });
     return res;
@@ -36,3 +36,20 @@ export const getAllTransactionDetailQuery = async () => {
     throw err;
   }
 };
+
+export const getTransactionDetailQueryByTransactionIdQuery =
+  async (transaction_id: number) => {
+    try {
+      const res = await prisma.transaction_Detail.findMany({
+        where: {
+          transaction_id: transaction_id,
+        },
+        include: {
+          product: true,
+        },
+      });
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };

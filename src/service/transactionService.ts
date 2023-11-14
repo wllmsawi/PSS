@@ -3,6 +3,7 @@ import {
   findTransactionQuery,
   getAllTransactionQuery,
   updateTransactionQuery,
+  groupTransactionByDateQuery,
 } from "../query/transactionQuery";
 
 export const createTransactionService = async (
@@ -32,7 +33,9 @@ export const createTransactionService = async (
   }
 };
 
-export const findTransactionService = async (id: number) => {
+export const findTransactionService = async (
+  id: number
+) => {
   try {
     const res = await findTransactionQuery(id);
     return res;
@@ -73,6 +76,15 @@ export const updateTransactionService = async (
       customer_id,
       payment_change
     );
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const groupTransactionByDateService = async () => {
+  try {
+    const res = await groupTransactionByDateQuery();
     return res;
   } catch (err) {
     throw err;
