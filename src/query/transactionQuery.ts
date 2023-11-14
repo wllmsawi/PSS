@@ -117,8 +117,7 @@ export const groupTransactionByDateQuery = async () => {
     const res = await prisma.transaction.groupBy({
       by: ["date"],
       _count: {
-        total_price: true,
-        total_price_ppn: true,
+        _all: true,
       },
       _sum: {
         total_price: true,
