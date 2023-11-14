@@ -62,7 +62,13 @@ export const getAllTransactionController = async (
   res: Response
 ) => {
   try {
-    const result = await getAllTransactionService();
+    const { startDate, endDate } = req.body;
+    const newStartDate = new Date(startDate);
+    const newEndDate = new Date(endDate);
+    const result = await getAllTransactionService(
+      newStartDate,
+      newEndDate
+    );
     return res.status(200).json({
       message: "Get All Transaction Succes",
       data: result,

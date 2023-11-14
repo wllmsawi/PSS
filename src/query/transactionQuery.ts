@@ -54,9 +54,18 @@ export const findTransactionQuery = async (id: number) => {
   }
 };
 
-export const getAllTransactionQuery = async () => {
+export const getAllTransactionQuery = async (
+  startDate: Date,
+  endDate: Date
+) => {
   try {
     const res = await prisma.transaction.findMany({
+      where: {
+        date: {
+          gte: new Date(`${startDate}`),
+          lte: new Date(`${endDate}`),
+        },
+      },
       include: {
         payment_method: true,
         transaction_detail: true,
