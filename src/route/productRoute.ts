@@ -12,6 +12,11 @@ import { uploadProductFile } from "../middleware/multer";
 router.get("/", getAllProductController);
 router.get("/find/filter", findProductController);
 router.get("/:id", getProductController);
-router.post("/", uploadProductFile, createProductController);
+router.post(
+  "/",
+  uploadProductFile,
+  createProductController
+);
+router.patch("/:id", updateProductController);
 
 export = router;
