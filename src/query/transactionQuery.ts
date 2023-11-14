@@ -39,7 +39,11 @@ export const findTransactionQuery = async (id: number) => {
       },
       include: {
         payment_method: true,
-        transaction_detail: true,
+        transaction_detail: {
+          include: {
+            product: true,
+          },
+        },
         customer: true,
         user: true,
       },
