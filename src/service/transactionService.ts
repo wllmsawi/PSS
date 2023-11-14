@@ -11,7 +11,6 @@ export const createTransactionService = async (
   total_qty: number,
   payment_method_id: number,
   payment_amount: number,
-  customer_id: number,
   customer_name: string,
   payment_change: number,
   total_price_ppn: number
@@ -23,7 +22,6 @@ export const createTransactionService = async (
       total_qty,
       payment_method_id,
       payment_amount,
-      customer_id,
       customer_name,
       (payment_change = payment_amount - total_price),
       total_price_ppn
@@ -60,7 +58,6 @@ export const updateTransactionService = async (
   total_qty: number,
   payment_method_id: number,
   payment_amount: number,
-  customer_id: number,
   payment_change: number
 ) => {
   try {
@@ -72,7 +69,6 @@ export const updateTransactionService = async (
       total_qty,
       payment_method_id,
       payment_amount,
-      customer_id,
       payment_change
     );
     return res;
