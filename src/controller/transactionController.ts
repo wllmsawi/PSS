@@ -18,7 +18,7 @@ export const createTransactionController = async (
       total_qty,
       payment_method_id,
       payment_amount,
-      customer_id,
+      customer_name,
     } = req.body;
 
     const result = await createTransactionService(
@@ -27,7 +27,7 @@ export const createTransactionController = async (
       total_qty,
       payment_method_id,
       payment_amount,
-      customer_id,
+      customer_name,
       payment_amount - (total_price + total_price * 0.1),
       total_price + total_price * 0.1
     );
@@ -92,7 +92,6 @@ export const updateTransactionController = async (
       total_qty,
       payment_method_id,
       payment_amount,
-      customer_id,
       payment_change,
     } = req.body;
     const newUser_id = Number(user_id);
@@ -100,7 +99,6 @@ export const updateTransactionController = async (
     const newTotal_qty = Number(total_qty);
     const newPayment_method_id = Number(payment_method_id);
     const newPayment_amount = Number(payment_amount);
-    const newCustomer_id = Number(customer_id);
     const newPayment_change = Number(payment_change);
     const result = await updateTransactionService(
       newId,
@@ -110,7 +108,6 @@ export const updateTransactionController = async (
       newTotal_qty,
       newPayment_method_id,
       newPayment_amount,
-      newCustomer_id,
       newPayment_change
     );
     return res.status(200).json({

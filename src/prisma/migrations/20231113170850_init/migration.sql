@@ -30,6 +30,7 @@ CREATE TABLE `Transaction` (
     `payment_method_id` INTEGER NOT NULL,
     `payment_amount` INTEGER NOT NULL,
     `customer_id` INTEGER NOT NULL,
+    `customer_name` VARCHAR(191) NULL,
     `payment_change` INTEGER NULL,
     `total_price_ppn` INTEGER NULL,
 
@@ -116,6 +117,9 @@ ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_customer_id_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_transaction_id_fkey` FOREIGN KEY (`transaction_id`) REFERENCES `Transaction`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Transaction_Detail` ADD CONSTRAINT `Transaction_Detail_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `Cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
