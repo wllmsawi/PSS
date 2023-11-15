@@ -80,6 +80,7 @@ model Product {
   product_description String?
   product_status      Boolean              @default(true)
   transaction_detail  Transaction_Detail[]
+  Stock               Stock[]
 }
 
 model Product_Group {
@@ -92,4 +93,19 @@ model Product_Category {
   id                    Int       @id @default(autoincrement())
   product_category_name String
   product               Product[]
+}
+
+model Branch {
+  id          Int     @id @default(autoincrement())
+  branch_name String
+  Stock       Stock[]
+}
+
+model Stock {
+  id        Int     @id @default(autoincrement())
+  branch    Branch  @relation(fields: [branchId], references: [id])
+  branchId  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
 }
