@@ -1,6 +1,7 @@
 import {
   createtransactionDetailQuery,
   getAllTransactionDetailQuery,
+  getTransactionDetailQueryByTransactionIdQuery,
 } from "../query/transactionDetailQuery";
 
 export const createTransactionDetailService = async (
@@ -32,3 +33,16 @@ export const getAllTransactionDetailService = async () => {
     throw err;
   }
 };
+
+export const getTransactionDetailQueryByTransactionIdService =
+  async (transaction_id: number) => {
+    try {
+      const res =
+        await getTransactionDetailQueryByTransactionIdQuery(
+          transaction_id
+        );
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };

@@ -4,6 +4,7 @@ import {
   findTransactionService,
   getAllTransactionService,
   updateTransactionService,
+  groupTransactionByDateService,
 } from "../service/transactionService";
 
 export const createTransactionController = async (
@@ -61,7 +62,13 @@ export const getAllTransactionController = async (
   res: Response
 ) => {
   try {
-    const result = await getAllTransactionService();
+    const { startDate, endDate } = req.body;
+    const newStartDate = new Date(startDate);
+    const newEndDate = new Date(endDate);
+    const result = await getAllTransactionService(
+      newStartDate,
+      newEndDate
+    );
     return res.status(200).json({
       message: "Get All Transaction Succes",
       data: result,
@@ -105,6 +112,21 @@ export const updateTransactionController = async (
     );
     return res.status(200).json({
       message: "Update Transaction Success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const groupTransactionByDateController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const result = await groupTransactionByDateService();
+    return res.status(200).json({
+      message: "success",
       data: result,
     });
   } catch (err) {

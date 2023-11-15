@@ -14,10 +14,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: [
-      process.env.WHITELISTED_DOMAIN &&
-        process.env.WHITELISTED_DOMAIN.split(""),
-    ],
+    origin: process.env.WHITELISTED_DOMAIN,
   })
 );
 
@@ -30,7 +27,7 @@ const cartRoute = require("./route/cartRoute");
 app.use("/cart", cartRoute);
 
 const transactionDetailRoute = require("./route/transactionDetailRoutes");
-app.use("/transaction-detail", transactionDetailRoute)
+app.use("/transaction-detail", transactionDetailRoute);
 
 const productRoute = require("./route/productRoute");
 app.use("/product", productRoute);
