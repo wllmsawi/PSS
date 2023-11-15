@@ -24,7 +24,8 @@ export const getAllProductQuery = async (
   page: number,
   pageSize: number,
   sortField: string,
-  sortOrder: string
+  sortOrder: string,
+  branch_id: number
 ) => {
   try {
     const skip = (page - 1) * pageSize;
@@ -35,6 +36,14 @@ export const getAllProductQuery = async (
       include: {
         product_group: true,
         product_category: true,
+        stock: {
+          include: {
+            branch: true,
+          },
+          where: {
+            branch_id: branch_id,
+          },
+        },
       },
       orderBy: {
         [sortField]: sortOrder as any,
