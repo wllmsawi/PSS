@@ -35,6 +35,9 @@ app.use("/product", productRoute);
 const categoryRoute = require("./route/productCategoryRoute");
 app.use("/category", categoryRoute);
 
+const branchRoute = require("./route/branchRoute");
+app.use("/branch", branchRoute);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
