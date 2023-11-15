@@ -49,9 +49,24 @@ export const findTransactionQuery = async (id: number) => {
   }
 };
 
-export const getAllTransactionQuery = async () => {
+export const getAllTransactionQuery = async (
+  startDate: Date,
+  endDate: Date
+) => {
   try {
-    const res = await prisma.transaction.findMany();
+    const res = await prisma.transaction.findMany({
+      where: {
+        date: {
+          gte: new Date(`${startDate}`),
+          lte: new Date(`${endDate}`),
+        },
+      },
+      include: {
+        payment_method: true,
+        transaction_detail: true,
+        user: true,
+      },
+    });
     return res;
   } catch (err) {
     throw err;
@@ -81,6 +96,24 @@ export const updateTransactionQuery = async (
         payment_method_id: payment_method_id,
         payment_amount: payment_amount,
         payment_change: payment_change,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const groupTransactionByDateQuery = async () => {
+  try {
+    const res = await prisma.transaction.groupBy({
+      by: ["date"],
+      _count: {
+        _all: true,
+      },
+      _sum: {
+        total_price: true,
+        total_price_ppn: true,
       },
     });
     return res;
