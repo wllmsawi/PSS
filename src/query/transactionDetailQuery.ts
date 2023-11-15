@@ -28,7 +28,7 @@ export const getAllTransactionDetailQuery = async () => {
   try {
     const res = await prisma.transaction_Detail.findMany({
       include: {
-        product : true
+        product: true,
       },
     });
     return res;

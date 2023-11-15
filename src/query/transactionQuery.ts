@@ -8,7 +8,7 @@ export const createTransactionQuery = async (
   total_qty: number,
   payment_method_id: number,
   payment_amount: number,
-  customer_id: number,
+  customer_name: string,
   payment_change: number,
   total_price_ppn: number
 ): Promise<any> => {
@@ -20,7 +20,7 @@ export const createTransactionQuery = async (
         total_qty: total_qty,
         payment_method_id: payment_method_id,
         payment_amount: payment_amount,
-        customer_id: customer_id,
+        customer_name: customer_name,
         payment_change: payment_change,
         total_price_ppn: total_price_ppn,
       },
@@ -40,7 +40,6 @@ export const findTransactionQuery = async (id: number) => {
       include: {
         payment_method: true,
         transaction_detail: true,
-        customer: true,
         user: true,
       },
     });
@@ -67,7 +66,6 @@ export const updateTransactionQuery = async (
   total_qty: number,
   payment_method_id: number,
   payment_amount: number,
-  customer_id: number,
   payment_change: number
 ) => {
   try {
@@ -82,7 +80,6 @@ export const updateTransactionQuery = async (
         total_qty: total_qty,
         payment_method_id: payment_method_id,
         payment_amount: payment_amount,
-        customer_id: customer_id,
         payment_change: payment_change,
       },
     });
