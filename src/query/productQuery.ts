@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const getProductQuery = async (id: number): Promise<any> => {
+export const getProductQuery = async (
+  id: number
+): Promise<any> => {
   try {
     const res = await prisma.product.findUnique({
       where: {
@@ -50,7 +52,8 @@ export const findProductQuery = async (
 ) => {
   try {
     const filter: any = {};
-    if (product_name != "undefined") filter.product_name = product_name;
+    if (product_name != "undefined")
+      filter.product_name = product_name;
     if (category_id) filter.category_id = category_id;
     const res = await prisma.product.findMany({
       include: {

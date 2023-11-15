@@ -20,6 +20,8 @@ model User {
   gender      Gender        @relation(fields: [gender_id], references: [id])
   gender_id   Int
   transaction Transaction[]
+  branch      Branch        @relation(fields: [branch_id], references: [id])
+  branch_id   Int
 }
 
 model Gender {
@@ -80,6 +82,7 @@ model Product {
   product_description String?
   product_status      Boolean              @default(true)
   transaction_detail  Transaction_Detail[]
+  stock               Stock[]
 }
 
 model Product_Group {
@@ -92,4 +95,20 @@ model Product_Category {
   id                    Int       @id @default(autoincrement())
   product_category_name String
   product               Product[]
+}
+
+model Branch {
+  id          Int     @id @default(autoincrement())
+  branch_name String
+  stock       Stock[]
+  User        User[]
+}
+
+model Stock {
+  id         Int     @id @default(autoincrement())
+  branch     Branch  @relation(fields: [branch_id], references: [id])
+  branch_id  Int
+  product    Product @relation(fields: [product_id], references: [id])
+  product_id Int
+  quantity   Int
 }
