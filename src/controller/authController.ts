@@ -34,7 +34,7 @@ export const loginController = async (req:Request, res:Response) => {
 
     }
 }
-
+//trial
 export const createCashierController = async (req: Request, res: Response) => {
     try {
       // Extract cashier information from the request body
@@ -52,7 +52,7 @@ export const createCashierController = async (req: Request, res: Response) => {
     }
   };
 
-
+//trial
 export const updateCashierController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
@@ -68,7 +68,7 @@ export const updateCashierController = async (req: Request, res: Response) => {
   };
   
 
-
+//trial
 export const deleteCashierController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
@@ -81,8 +81,6 @@ export const deleteCashierController = async (req: Request, res: Response) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
-
-  // userController.ts
 
 export const changeCashierStatusController = async (req: Request, res: Response) => {
     try {
