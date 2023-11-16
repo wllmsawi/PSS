@@ -19,10 +19,17 @@ export const getAllProductService = async (
   page: number,
   pageSize: number,
   sortField: string,
-  sortOrder: string
+  sortOrder: string,
+  branch_id: number
 ) => {
   try {
-    const res = await getAllProductQuery(page, pageSize, sortField, sortOrder);
+    const res = await getAllProductQuery(
+      page,
+      pageSize,
+      sortField,
+      sortOrder,
+      branch_id
+    );
     return res;
   } catch (err) {
     throw err;
