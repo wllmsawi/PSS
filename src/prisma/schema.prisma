@@ -21,6 +21,7 @@ model User {
   gender    Gender  @relation(fields: [gender_id], references: [id])
   gender_id Int  
   avatar String
+  status Boolean?
 }
 
 model Gender {

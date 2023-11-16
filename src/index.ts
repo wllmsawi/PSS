@@ -29,6 +29,13 @@ app.use(
 
   const userRoute = require('./route/userRoute');
   app.use('/user', userRoute);
+
+  const authRoute =  require('./route/authRouter');
+  app.use('/auth', authRoute);
+
+// import { yourProtectedRouteHandler } from "./controller/authController";
+//   import { verifyToken } from "./middleware/userAuth";
+//   app.get('/protected-route', verifyToken, yourProtectedRouteHandler);
   
   //test kirim
   app.get('/', (req: Request, res: Response) => {

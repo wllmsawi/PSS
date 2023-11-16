@@ -1,41 +1,42 @@
 import { Request, Response } from "express";
-import { getAllEmployee, getEmployeeName, getEmployeeQuery } from "../service/userService";
+import { findAllEmployeeService, findEmployeeNameService, findEmployeeService } from "../service/userService";
 
-export const getAllEmployeeController = async (req: Request, res: Response) => {
+//jalan
+export const findAllEmployeeController = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const newId = Number(id);
     console.log("newId", typeof id);
     try {
-        const result = await getAllEmployee(newId);
+        const result = await findAllEmployeeService();
+        
         return res.status(200).json({message: "Find All Employee Success", data: result});
     } catch (err) {
         return res.status(500).send(err)
         
     }
-}
+};
 
-export const getEmployeeNameController = async (req:Request, res:Response) => {
-    const {name} = req.params;
-    // const newName = String(name);
+export const findEmployeeNameController = async (req:Request, res:Response) => {
+    const {full_name} = req.query;
+    const newName = String(full_name);
 
     try {
-        const result = await getEmployeeName(name);
+        const result = await findEmployeeNameService(newName);
         return res.status(200).json({message: "Find Employee Name Success", data: result});
     } catch (err) {
         return res.status(500).send(err)
         
     }
-}  
+};  
 
-
-export const getEmployeeQueryController = async (req:Request, res:Response) =>{
-    const {id} = req.params;
-    const newId = Number(id)
+//jalan
+export const findEmployeeQueryController = async (req:Request, res:Response) =>{
+    const {id} = req.body;
+    const newId = String(id)
 
     try{
-        const result = await getEmployeeQuery(newId);
+        const result = await findEmployeeService(newId);
         return res.status(200).json({message:"Find Spesific Employee Success", data: result});
     } catch (err) {
         return res.status(500).send(err);
     }
-}
+};

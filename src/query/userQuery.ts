@@ -2,12 +2,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // cari semua employee dari id, bust kategori
-export const findAllEmployee = async (id:number) :Promise<any> => {
+export const findAllEmployeeQuery = async () :Promise<any> => {
   try {
     const result = await prisma.user.findMany({
-      where: {
-        id: id
-      },
       include:{
           role: true,
           gender: true
@@ -21,19 +18,21 @@ export const findAllEmployee = async (id:number) :Promise<any> => {
 };
 
 // cari employee termasuk role dan gender
-export const findEmployeeQuery = async (id:number):Promise<any>=> {
+export const findEmployeeQuery = async (full_name:string):Promise<any>=> {
  try {
   const result = await prisma.user.findFirst({
     where: {
-      id: id
+      full_name
     }, 
     include: {
 
       role:true,
       gender: true
     }
-  
+    
+    
   });
+  console.log(full_name);
   return result;
 
  } catch (err) {
@@ -44,12 +43,19 @@ export const findEmployeeQuery = async (id:number):Promise<any>=> {
 }
 
 //cari nama
-export const findEmployeeName = async (full_name:string) :Promise<any[]> => {
+export const findEmployeeNameQuery = async (full_name : string, email:string | null | any = null) :Promise<any> => {
   try {
 
-    const result = await prisma.user.findMany({
+    const result = await prisma.user.findFirst({
       where: {
-        full_name: full_name,
+       AND: [
+          {
+            full_name,
+          },
+          {
+            email,
+          },
+        ],
       },
     })
     return result;
@@ -58,6 +64,6 @@ export const findEmployeeName = async (full_name:string) :Promise<any[]> => {
     throw err;
     
   }
-}
+};
 
 
