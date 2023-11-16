@@ -7,10 +7,7 @@ import {
   updateProductService,
 } from "../service/productService";
 
-export const getProductController = async (
-  req: Request,
-  res: Response
-) => {
+export const getProductController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const newId = Number(id);
   try {
@@ -24,17 +21,8 @@ export const getProductController = async (
   }
 };
 
-export const getAllProductController = async (
-  req: Request,
-  res: Response
-) => {
-  const {
-    page,
-    pageSize,
-    sortField,
-    sortOrder,
-    branch_id,
-  } = req.query;
+export const getAllProductController = async (req: Request, res: Response) => {
+  const { page, pageSize, sortField, sortOrder, branch_id } = req.query;
   try {
     const result = await getAllProductService(
       Number(page),
@@ -52,10 +40,7 @@ export const getAllProductController = async (
   }
 };
 
-export const findProductController = async (
-  req: Request,
-  res: Response
-) => {
+export const findProductController = async (req: Request, res: Response) => {
   try {
     const { product_name, category_id } = req.query;
     const result = await findProductService(
@@ -71,10 +56,7 @@ export const findProductController = async (
   }
 };
 
-export const createProductController = async (
-  req: Request,
-  res: Response
-) => {
+export const createProductController = async (req: Request, res: Response) => {
   try {
     const {
       product_name,
@@ -102,10 +84,7 @@ export const createProductController = async (
   }
 };
 
-export const updateProductController = async (
-  req: Request,
-  res: Response
-) => {
+export const updateProductController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const newId = Number(id);
