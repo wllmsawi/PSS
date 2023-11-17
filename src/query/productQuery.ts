@@ -15,7 +15,6 @@ export const getProductQuery = async (
     });
     return res;
   } catch (err) {
-    console.log("getProductQueryError: ", err);
     throw err;
   }
 };
