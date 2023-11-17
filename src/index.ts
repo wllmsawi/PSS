@@ -18,10 +18,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: [
-      process.env.WHITELISTED_DOMAIN &&
-      process.env.WHITELISTED_DOMAIN.split(""),
-    ],
+    origin: process.env.WHITELISTED_DOMAIN,
   })
   );
   
@@ -44,6 +41,24 @@ app.use(
   
   
   
+const transactionRoute = require("./route/transactionRoute");
+app.use("/transaction", transactionRoute);
+
+const cartRoute = require("./route/cartRoute");
+app.use("/cart", cartRoute);
+
+const transactionDetailRoute = require("./route/transactionDetailRoutes");
+app.use("/transaction-detail", transactionDetailRoute);
+
+const productRoute = require("./route/productRoute");
+app.use("/product", productRoute);
+
+const categoryRoute = require("./route/productCategoryRoute");
+app.use("/category", categoryRoute);
+
+const branchRoute = require("./route/branchRoute");
+app.use("/branch", branchRoute);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
