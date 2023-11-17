@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const registerQuery = async ( 
+export const registerQuery = async ( 
     full_name: string, 
     address:string,
     email:string, 
@@ -21,7 +21,7 @@ const registerQuery = async (
           address,
           email,
           password,
-          role_id: 2,
+          role_id,
           gender_id,
           avatar,
           status :true
@@ -34,7 +34,7 @@ const registerQuery = async (
   }
 };
 
-const loginQuery = async (full_name: string, email:string) => {
+export const loginQuery = async (full_name: string, email:string) => {
   try {
     const res = await prisma.user.findFirst({
       where: {
@@ -54,9 +54,6 @@ const loginQuery = async (full_name: string, email:string) => {
   }
 };
 
-
-
-
 export const createCashierQuery = async (
   full_name: string, 
   address:string,
@@ -75,10 +72,10 @@ export const createCashierQuery = async (
         address,
         email,
         password,
-        role_id,
+        role_id: 2,
         gender_id,
         avatar, 
-        status
+        status : true
       }
     
     });
@@ -87,7 +84,6 @@ export const createCashierQuery = async (
     throw err;
   }
 };
-
 
 export const updateCashierQuery = async (
   id: number, 
@@ -102,7 +98,15 @@ export const updateCashierQuery = async (
   try {
     const res = await prisma.user.update({
       where: { id },
-      data: updatedData,
+      data: {
+        full_name: updatedData.full_name,
+        address: updatedData.address,
+        email: updatedData.email,
+        password: updatedData.password, 
+        role_id: updatedData.role_id,
+        gender_id: updatedData.gender_id,
+        avatar: updatedData.avatar
+      },
     });
     return res;
   } catch (err) {
@@ -125,17 +129,17 @@ export const deleteCashierQuery = async (id: number): Promise<any> => {
 
 
 
-// export const changeCashierStatusQuery = async (id: number, newStatus: string): Promise<any> => {
-//   try {
-//     const res = await prisma.user.update({
-//       where: { id },
-//       data: { status: newStatus },
-//     });
-//     return res;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+export const changeCashierStatusQuery = async (id: number, status: boolean): Promise<any> => {
+  try {
+    const res = await prisma.user.update({
+      where: { id },
+      data: { status: status }
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
 
 export const findCashierByIdQuery = async (id: number) => {
@@ -146,24 +150,24 @@ export const findCashierByIdQuery = async (id: number) => {
   });
 };
 
-// const keepLoginQuery = async (id: number) => {
-//   try {
-//     const res = await prisma.user.findUnique({
-//       where: {
-//         id:id,
-//       },
-//       select: {
+export const keepLoginQuery = async (id: number) => {
+  try {
+    const res = await prisma.user.findUnique({
+      where: {
+        id:id,
+      },
+      // select: {
      
-//         email: true,
-//         full_name: true,
+      //   email: true,
+      //   full_name: true,
 
-//       },
-//     });
-//     return res;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+      // },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
 // const updateQuery = async (
 //     id:number,
@@ -196,9 +200,3 @@ export const findCashierByIdQuery = async (id: number) => {
 //   }
 // };
 
-export {
-  registerQuery,
-  loginQuery,
-  // keepLoginQuery,
-  // updateQuery,
-};

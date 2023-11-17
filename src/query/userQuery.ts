@@ -43,27 +43,47 @@ export const findEmployeeQuery = async (full_name:string):Promise<any>=> {
 }
 
 //cari nama
-export const findEmployeeNameQuery = async (full_name : string, email:string | null | any = null) :Promise<any> => {
+//handle datatype beda
+// export const findEmployeeNameQuery = async (full_name : string, email:string | null | any = null) :Promise<any> => {
+//   try {
+
+//     const result = await prisma.user.findFirst({
+//       where: {
+//        AND: [
+//           {
+//             full_name,
+//           },
+//           {
+//             email,
+//           },
+//         ],
+//       },
+//     })
+//     return result;
+//   } catch (err) {
+//     console.log("findEmployeeNameError: ", err);
+//     throw err;
+    
+//   }
+// };
+
+export const findEmployeeNameQuery = async (full_name: string, email: string | null | undefined = undefined): Promise<any> => {
   try {
+    const whereClause: any = {
+      full_name,
+    };
+
+    if (email !== undefined) {
+      whereClause.email = email;
+    }
 
     const result = await prisma.user.findFirst({
-      where: {
-       AND: [
-          {
-            full_name,
-          },
-          {
-            email,
-          },
-        ],
-      },
-    })
+      where: whereClause,
+    });
+
     return result;
   } catch (err) {
     console.log("findEmployeeNameError: ", err);
     throw err;
-    
   }
 };
-
-

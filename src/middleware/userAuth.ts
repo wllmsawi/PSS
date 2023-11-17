@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 
 export interface AuthenticatedRequest extends Request {
     user?: {
-      id: number; // Adjust based on your actual user ID type
-      role_id: number; // Adjust based on your actual role ID type
+      id: number | any; 
+      role_id: number; 
     };
   }
   export const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -17,7 +17,7 @@ export interface AuthenticatedRequest extends Request {
       token = token.split(" ")[1];
   
       if (token === "null" || !token)
-        return res.status(500).send("Unauthorized Token");
+        return res.status(500).send("Unauthorized !TOKEN!");
   
       const secretKey: string= process.env.JWT_SECRET_KEY || 'default_secret';
   

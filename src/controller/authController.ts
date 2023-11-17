@@ -1,10 +1,10 @@
 import { registerService, keepLoginService, loginService } from "../service/authService";
 import { Request,Response } from "express";
 import { createCashierService } from "../service/authService";
-// import { AuthenticatedRequest } from "../middleware/userAuth";
+import { AuthenticatedRequest } from "../middleware/userAuth";
 import { updateCashierService } from "../service/authService";
 import { deleteCashierService } from "../service/authService";
-// import { changeCashierStatusService } from "../service/authService";
+import { changeCashierStatusService } from "../service/authService";
 
 export const registerController = async (req:Request, res:Response) => {
     try {
@@ -34,16 +34,29 @@ export const loginController = async (req:Request, res:Response) => {
 
     }
 }
-//trial
+
+export const keepLoginController =async (req:AuthenticatedRequest, res: Response) => {
+  try {
+    const { id } = req.user?.id
+
+    const result = await keepLoginService(id);
+
+    return res.status(200).json({
+      message: "Success",
+      data: result,
+    });
+  } catch (err) {
+    return res.status(500).send(err)
+  }
+}
 export const createCashierController = async (req: Request, res: Response) => {
     try {
-      // Extract cashier information from the request body
-      const { full_name, address, email, password, role_id, gender_id, avatar } = req.body;
+   
+      const { full_name, address, email, password, role_id, gender_id, avatar, status } = req.body;
       
-      // Call the service function to create a cashier
+
       const cashier = await createCashierService( String(full_name), String(address), String(email), String(password), Number(role_id), Number(gender_id),String(avatar), Boolean(status));
-      
-      // Respond with the created cashier
+ 
       res.status(201).send({ message: 'Data Kasir Berhasil Masuk', data: cashier });
 
     } catch (error) {
@@ -52,11 +65,10 @@ export const createCashierController = async (req: Request, res: Response) => {
     }
   };
 
-//trial
 export const updateCashierController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const updatedData = req.body; // Assuming the updated data is sent in the request body
+      const updatedData = req.body; 
   
       const result = await updateCashierService(Number(id), updatedData);
   
@@ -67,8 +79,6 @@ export const updateCashierController = async (req: Request, res: Response) => {
     }
   };
   
-
-//trial
 export const deleteCashierController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
@@ -85,11 +95,11 @@ export const deleteCashierController = async (req: Request, res: Response) => {
 export const changeCashierStatusController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { newStatus } = req.body; // Assuming the new status is sent in the request body
+      const { status } = req.body; 
   
-    //   const result = await changeCashierStatusService(Number(id), newStatus);
+      const result = await changeCashierStatusService(Number(id), Boolean(status));
   
-    //   return res.status(200).json({ message: "Status change successful", data: result });
+      return res.status(200).json({ message: "Status change successful", data: result });
     } catch (err) {
       console.error("Change Cashier Status Error:", err);
       return res.status(500).json({ error: "Internal Server Error" });

@@ -8,7 +8,7 @@ import { findEmployeeNameQuery } from "../query/userQuery";
 import { createCashierQuery } from '../query/authQuery';
 import { updateCashierQuery } from "../query/authQuery";
 import { deleteCashierQuery } from "../query/authQuery";
-// import { changeCashierStatusQuery } from "../query/authQuery";
+import { changeCashierStatusQuery } from "../query/authQuery";
 
 
 export const registerService  = async (
@@ -92,14 +92,22 @@ export const createCashierService = async (
 export const updateCashierService = async (
     id: number, 
     updatedData: {   
-        full_name: string, 
-        address:string,
-        email:string, 
-        password: string,
-        role_id:number, 
-        gender_id:number,
-        avatar:string}): Promise<any> => {
+      full_name: string, 
+      address: string,
+      email: string, 
+      password: string,
+      role_id: number, 
+      gender_id: number,
+      avatar: string
+    }
+  ): Promise<any> => {
     try {
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(updatedData.password, salt);
+  
+ 
+      updatedData.password = hashPassword;
+  
       const res = await updateCashierQuery(id, updatedData);
       return res;
     } catch (err) {
@@ -107,8 +115,6 @@ export const updateCashierService = async (
     }
   };
   
-
-
 export const deleteCashierService = async (id: number): Promise<any> => {
     try {
       const res = await deleteCashierQuery(id);
@@ -120,32 +126,17 @@ export const deleteCashierService = async (id: number): Promise<any> => {
   
 
 
-// export const changeCashierStatusService = async (id: number, newStatus: string): Promise<any> => {
-//     try {
-//       const res = await changeCashierStatusQuery(id, newStatus);
-//       return res;
-//     } catch (err) {
-//       throw err;
-//     }
-//   };
+export const changeCashierStatusService = async (id: number, status: boolean): Promise<any> => {
+    try {
+      const res = await changeCashierStatusQuery(id, status);
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };
   
-
-// export const updateService = async (
-//     id:number,
-//     full_name:string,
-//     email:string, 
-//     avatar: string) => {
-//     try {
-//         const result = updateQuery(id, full_name,email,avatar)
-//         // console.log(result);
-//         return result;
-        
-//     } catch (err) {
-//         throw err
-//     }
-// };
-
-export const keepLoginService = async (id:number) => {
+  
+  export const keepLoginService = async (id:number) => {
     try {
         const result = await keepLoginQuery(id);
 
@@ -157,3 +148,17 @@ export const keepLoginService = async (id:number) => {
             throw err;       
     }
 }
+    // export const updateService = async (
+    //     id:number,
+    //     full_name:string,
+    //     email:string, 
+    //     avatar: string) => {
+    //     try {
+    //         const result = updateQuery(id, full_name,email,avatar)
+    //         // console.log(result);
+    //         return result;
+            
+    //     } catch (err) {
+    //         throw err
+    //     }
+    // };
