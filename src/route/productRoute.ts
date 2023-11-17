@@ -17,6 +17,10 @@ router.post(
   uploadProductFile,
   createProductController
 );
-router.patch("/:id", updateProductController);
+router.patch(
+  "/:id",
+  uploadProductFile,
+  updateProductController
+);
 
 export = router;

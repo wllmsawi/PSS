@@ -34,6 +34,10 @@ export const getAllProductController = async (
     sortField,
     sortOrder,
     branch_id,
+    gte,
+    lte,
+    product_category_id,
+    product_group_id,
   } = req.query;
   try {
     const result = await getAllProductService(
@@ -41,7 +45,11 @@ export const getAllProductController = async (
       Number(pageSize),
       String(sortField) || "product_name",
       String(sortOrder) || "asc",
-      Number(branch_id)
+      Number(branch_id),
+      Number(gte) || 0,
+      Number(lte) || 0,
+      Number(product_category_id),
+      Number(product_group_id)
     );
     return res.status(200).json({
       message: "Find all product success",
@@ -116,11 +124,11 @@ export const updateProductController = async (
       product_price,
       product_image,
       product_description,
-      product_status,
+      // product_status,
     } = req.body;
     const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
-    const newProductStatus = Boolean(product_status);
+    // const newProductStatus = Boolean(product_status);
     const result = await updateProductService(
       newId,
       product_name || product_name,
@@ -128,8 +136,8 @@ export const updateProductController = async (
       Number(product_category_id) || product_category_id,
       newProductPrice || product_price,
       req?.file?.filename || product_image,
-      product_description || product_description,
-      newProductStatus || product_status
+      product_description || product_description
+      // newProductStatus || product_status
     );
     console.log("product_name", product_name);
     return res.status(200).json({

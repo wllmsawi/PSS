@@ -15,7 +15,6 @@ export const getProductQuery = async (
     });
     return res;
   } catch (err) {
-    console.log("getProductQueryError: ", err);
     throw err;
   }
 };
@@ -25,14 +24,26 @@ export const getAllProductQuery = async (
   pageSize: number,
   sortField: string,
   sortOrder: string,
-  branch_id: number
+  branch_id: number,
+  gte: number,
+  lte: number,
+  product_category_id: number,
+  product_group_id: number
 ) => {
   try {
     const skip = (page - 1) * pageSize;
     const take = pageSize;
+    const filter: any = {};
+    if (product_group_id && product_category_id) {
+      filter.product_category_id = product_category_id;
+      filter.product_group_id = product_group_id;
+    }
     const res = await prisma.product.findMany({
       skip,
       take,
+      where: {
+        ...filter,
+      },
       include: {
         product_group: true,
         product_category: true,
@@ -41,6 +52,10 @@ export const getAllProductQuery = async (
             branch: true,
           },
           where: {
+            quantity: {
+              gte: gte,
+              lte: lte,
+            },
             branch_id: branch_id,
           },
         },
@@ -111,8 +126,8 @@ export const updateProductQuery = async (
   product_category_id: number,
   product_price: number,
   product_image: string,
-  product_description: string,
-  product_status: boolean
+  product_description: string
+  // product_status: boolean
 ) => {
   try {
     const res = await prisma.product.updateMany({
@@ -120,13 +135,13 @@ export const updateProductQuery = async (
         id: id,
       },
       data: {
-        product_name,
-        product_group_id,
-        product_category_id,
-        product_price,
-        product_image,
-        product_description,
-        product_status,
+        product_name: product_name,
+        product_group_id: product_group_id,
+        product_category_id: product_category_id,
+        product_price: product_price,
+        product_image: product_image,
+        product_description: product_description,
+        // product_status,
       },
     });
     return res;

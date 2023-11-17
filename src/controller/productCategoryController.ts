@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import {
   createProductCategoryService,
   updateProductCategoryService,
+  getProductCategoryService,
+  getProductGroupService,
 } from "../service/productCategoryService";
 
 export const createProductCategoryController = async (
@@ -35,6 +37,36 @@ export const updateProductCategoryController = async (
     );
     return res.status(200).json({
       message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getProductCategoryController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const result = await getProductCategoryService();
+    return res.status(200).json({
+      message: "Success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getProductGroupController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const result = await getProductGroupService();
+    return res.status(200).json({
+      message: "Success",
       data: result,
     });
   } catch (err) {
