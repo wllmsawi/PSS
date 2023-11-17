@@ -34,6 +34,24 @@ export interface AuthenticatedRequest extends Request {
     }
   };
   
+  export const checkAdmin = async (req:AuthenticatedRequest, res:Response, next:NextFunction) => {
+    try {
+      
+      let token: string | any = req.headers.authorization;
+
+      const secretKey: string= process.env.JWT_SECRET_KEY || 'default_secret';
+
+      let verifiedUser = jwt.verify(token, secretKey) as unknown;
+
+      const user = verifiedUser as { id: number; role_id: number };
+      if (user.role_id == 1 ) {
+        next();
+      }
+      return res.status(500).send("Unauthorized");
+    } catch (err) {
+      return res.status(500).send("Unauthorized");
+    }
+  };
 // export const verifyToken = (req:Request, res:Response, next:NextFunction) => {
 //   const token = req.headers.authorization;
 

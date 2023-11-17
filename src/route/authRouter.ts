@@ -4,17 +4,20 @@ const router = express.Router();
 // blm ada keep login
 import {  keepLoginController, registerController, loginController, updateCashierController} from "../controller/authController";
 import { createCashierController,deleteCashierController, changeCashierStatusController } from "../controller/authController";
-import { verifyToken } from "../middleware/userAuth";
+// import { checkAdmin, verifyToken } from "../middleware/userAuth";
 
 
 router.post("/login", loginController);
 router.post("/register", registerController);
-router.get("/keep-login", verifyToken, keepLoginController);
+router.get("/keep-login",  keepLoginController);
 
 router.post("/create", createCashierController);
 router.put("/:id/update", updateCashierController);
 router.delete("/:id/delete", deleteCashierController);
 router.patch("/:id/change-status", changeCashierStatusController);
+// router.patch("/update-profile/:id", updateController);
+
+
 // router.get('/admin-page', verifyToken => {
 //     const userRole = req.user.role_id;
   
@@ -31,4 +34,3 @@ router.patch("/:id/change-status", changeCashierStatusController);
 
 
 export = router;
-// router.patch("/update-profile/:id", updateController);
