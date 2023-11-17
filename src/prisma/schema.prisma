@@ -86,15 +86,18 @@ model Product {
 }
 
 model Product_Group {
-  id                 Int       @id @default(autoincrement())
+  id                 Int                @id @default(autoincrement())
   product_group_name String
   product            Product[]
+  Product_Category   Product_Category[]
 }
 
 model Product_Category {
-  id                    Int       @id @default(autoincrement())
+  id                    Int           @id @default(autoincrement())
   product_category_name String
   product               Product[]
+  group                 Product_Group @relation(fields: [product_group_id], references: [id])
+  product_group_id      Int
 }
 
 model Branch {
