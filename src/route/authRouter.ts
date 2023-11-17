@@ -4,12 +4,12 @@ const router = express.Router();
 // blm ada keep login
 import {  keepLoginController, registerController, loginController, updateCashierController} from "../controller/authController";
 import { createCashierController,deleteCashierController, changeCashierStatusController } from "../controller/authController";
-// import { checkAdmin, verifyToken } from "../middleware/userAuth";
+import {  verifyToken } from "../middleware/userAuth";
 
 
 router.post("/login", loginController);
 router.post("/register", registerController);
-router.get("/keep-login",  keepLoginController);
+router.get("/keep-login", verifyToken, keepLoginController);
 
 router.post("/create", createCashierController);
 router.put("/:id/update", updateCashierController);

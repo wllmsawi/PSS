@@ -34,7 +34,7 @@ export const loginController = async (req:Request, res:Response) => {
 
 export const keepLoginController =async (req:AuthenticatedRequest, res: Response) => {
   try {
-    const { id } = req.user?.id
+    const id = req.user?.id
 
     const result = await keepLoginService(id);
 

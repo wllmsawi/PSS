@@ -165,12 +165,12 @@ export const keepLoginQuery = async (id: number) => {
       where: {
         id:id,
       },
-      // select: {
+      select: {
      
-      //   email: true,
-      //   full_name: true,
+        email: true,
+        full_name: true,
 
-      // },
+      },
     });
     return res;
   } catch (err) {
