@@ -1,6 +1,8 @@
 import {
   createProductCategoryQuery,
   updateProductCategoryQuery,
+  getProductCategoryQuery,
+  getProductGroupQuery,
 } from "../query/productCategoryQuery";
 
 export const createProductCategoryService = async (
@@ -25,6 +27,24 @@ export const updateProductCategoryService = async (
       id,
       product_category_name
     );
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getProductCategoryService = async () => {
+  try {
+    const res = await getProductCategoryQuery();
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getProductGroupService = async () => {
+  try {
+    const res = await getProductGroupQuery();
     return res;
   } catch (err) {
     throw err;

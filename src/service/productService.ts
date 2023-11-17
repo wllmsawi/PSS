@@ -20,7 +20,11 @@ export const getAllProductService = async (
   pageSize: number,
   sortField: string,
   sortOrder: string,
-  branch_id: number
+  branch_id: number,
+  gte: number,
+  lte: number,
+  product_category_id: number,
+  product_group_id: number
 ) => {
   try {
     const res = await getAllProductQuery(
@@ -28,7 +32,11 @@ export const getAllProductService = async (
       pageSize,
       sortField,
       sortOrder,
-      branch_id
+      branch_id,
+      gte,
+      lte,
+      product_category_id,
+      product_group_id
     );
     return res;
   } catch (err) {
@@ -78,8 +86,8 @@ export const updateProductService = async (
   product_category_id: number,
   product_price: number,
   product_image: string,
-  product_description: string,
-  product_status: boolean
+  product_description: string
+  // product_status: boolean
 ) => {
   try {
     const check = await getProductQuery(id);
@@ -91,8 +99,8 @@ export const updateProductService = async (
       product_category_id,
       product_price,
       product_image,
-      product_description,
-      product_status
+      product_description
+      // product_status
     );
     return res;
   } catch (err) {
