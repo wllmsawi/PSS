@@ -105,7 +105,7 @@ export const updateCashierQuery = async (
   gender_id:number,
   avatar:string }): Promise<any> => {
   try {
-    const res = await prisma.user.update({
+    const res = await prisma.user.updateMany({
       where: { id },
       data: {
         full_name: updatedData.full_name,
@@ -156,6 +156,16 @@ export const findCashierByIdQuery = async (id: number) => {
     where: {
       id,
     },
+  });
+};
+export const uploadAvatarFile = async (id: number) => {
+  return prisma.user.findUnique({
+    where: {
+      id,
+    },select:{
+      avatar: true,
+      
+    }
   });
 };
 

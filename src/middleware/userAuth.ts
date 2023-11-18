@@ -52,21 +52,4 @@ export interface AuthenticatedRequest extends Request {
       return res.status(500).send("Unauthorized");
     }
   };
-// export const verifyToken = (req:Request, res:Response, next:NextFunction) => {
-//   const token = req.headers.authorization;
-
-//   if (!token) {
-//     return res.status(401).json({ message: 'Unauthorized' });
-//   }
-
-//   try {
-//     const decoded = jwt.verify(token, 'your_secret_key') as {id:number; role_id:number};
-//     req.user = decoded; // Attach user information to the request object
-//     next();
-//   } catch (error) {
-//     return res.status(403).json({ message: 'Invalid token' });
-//   }
-// };
-
-// 
 

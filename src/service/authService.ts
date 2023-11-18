@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 import { findEmployeeQuery } from "../query/userQuery";
-import { registerQuery, loginQuery, keepLoginQuery, updateQuery } from "../query/authQuery";
+import { registerQuery, loginQuery, keepLoginQuery, updateQuery, findCashierByIdQuery } from "../query/authQuery";
 import { findEmployeeNameQuery } from "../query/userQuery";
 import { createCashierQuery, updateCashierQuery, deleteCashierQuery, changeCashierStatusQuery } from '../query/authQuery';
 // const {findEmployeeQuery} =require("../query/userQuery");
@@ -139,10 +139,12 @@ export const updateCashierService = async (
     }
   ): Promise<any> => {
     try {
+      
+          const check = await findCashierByIdQuery(id);
+          if (!check) throw new Error("Cashier doesn't exist");
+     
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(updatedData.password, salt);
-  
- 
       updatedData.password = hashPassword;
   
       const res = await updateCashierQuery(id, updatedData);

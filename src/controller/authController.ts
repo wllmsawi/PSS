@@ -6,7 +6,17 @@ import { AuthenticatedRequest } from "../middleware/userAuth";
 export const registerController = async (req:Request, res:Response) => {
     try {
         const {full_name, address, email, password, role_id, gender_id, avatar,status, transaction,branch_id} = req.body;
-        const result = await registerService(String(full_name), String(address), String(email), String(password), Number(role_id), Number(gender_id),String(avatar), Boolean(status), void(transaction), Number(branch_id));
+        const result = await registerService(
+          String(full_name), 
+          String(address), 
+          String(email), 
+          String(password), 
+          Number(role_id), 
+          Number(gender_id),
+          String(req.file?.filename), 
+          Boolean(status), 
+          void(transaction), 
+          Number(branch_id));
         console.log(result)
         return res.status(200).json({message: "Berhasil", data: result,})
     } catch (err: any) {
@@ -66,8 +76,15 @@ export const updateCashierController = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const updatedData = req.body; 
+
+      if (req.file) {
+        // Assuming you want to update the avatar property in your data
+        updatedData.avatar = req.file.filename;
+      }
   
-      const result = await updateCashierService(Number(id), updatedData);
+      const result = await updateCashierService(
+        Number(id), 
+        updatedData);
   
       return res.status(200).json({ message: "Update successful", data: result });
     } catch (err) {
@@ -104,17 +121,14 @@ export const changeCashierStatusController = async (req: Request, res: Response)
   };
   
   
-
-
-
-// export const yourProtectedRouteHandler = (req: AuthenticatedRequest, res: Response) => {
-//             try {
-//                 const userId = req.user?.id;  
-//                 const roleId = req.user?.role_id;
+export const yourProtectedRouteHandler = (req: AuthenticatedRequest, res: Response) => {
+            try {
+                const userId = req.user?.id;  
+                const roleId = req.user?.role_id;
             
-//                 res.send(`User ID: ${userId}, Role ID: ${roleId}`);
-//             } catch (err) {
-//                 throw err;  
-//             }
-//   };
+                res.send(`User ID: ${userId}, Role ID: ${roleId}`);
+            } catch (err) {
+                throw err;  
+            }
+  };
   
