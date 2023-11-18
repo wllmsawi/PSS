@@ -53,10 +53,14 @@ export const loginService =async (full_name:string, email:string, password:strin
           throw new Error("Password is Incorrect");    
           
         }
-        let payload ={
+        // Create JWT token
+        let payload = {
           id: check.id,
           email: check.email,
           full_name: check.full_name,
+          branch_id: check.branch_id,
+          role_id: check.role_id,
+          avatar: check.avatar,
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY,{expiresIn: "1hr",})
         console.log(check);
