@@ -63,7 +63,11 @@ export const getAllTransactionQuery = async (
       },
       include: {
         payment_method: true,
-        transaction_detail: true,
+        transaction_detail: {
+          include: {
+            product: true,
+          },
+        },
         user: true,
       },
     });

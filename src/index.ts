@@ -38,6 +38,14 @@ app.use("/category", categoryRoute);
 const branchRoute = require("./route/branchRoute");
 app.use("/branch", branchRoute);
 
+const statusRoute = require("./route/statusRoute");
+app.use("/status", statusRoute);
+
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "./public/images"))
+);
+
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
