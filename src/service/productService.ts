@@ -107,7 +107,6 @@ export const updateProductService = async (
       product_description,
       product_status_id
     );
-    console.log(product_name);
 
     return res;
   } catch (err) {

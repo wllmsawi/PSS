@@ -52,3 +52,18 @@ export const getProductGroupQuery = async () => {
     throw err;
   }
 };
+
+export const deleteProductCategoryQuery = async (
+  id: number
+) => {
+  try {
+    const res = await prisma.product_Category.delete({
+      where: {
+        id: id,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
