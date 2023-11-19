@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { date } from "yup";
 
 const prisma = new PrismaClient();
 
@@ -110,16 +111,16 @@ export const updateTransactionQuery = async (
 
 export const groupTransactionByDateQuery = async () => {
   try {
-    const res = await prisma.transaction.groupBy({
-      by: ["date"],
-      _count: {
-        _all: true,
-      },
-      _sum: {
-        total_price: true,
-        total_price_ppn: true,
-      },
-    });
+    // const res = await prisma.transaction.groupBy({
+    //   by: ["date"],
+    //   _avg: {
+    //     total_price: true,
+    //   },
+    // });
+    const res =
+      await prisma.$queryRaw`SELECT DATE_FORMAT(date, '%Y-%m-%d') AS date, AVG(total_price) AS total
+            FROM transaction
+            GROUP BY DATE_FORMAT(date, '%Y-%m-%d')`;
     return res;
   } catch (err) {
     throw err;
