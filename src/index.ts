@@ -47,6 +47,8 @@ app.use(
   "/uploads",
   express.static(path.join(__dirname, "./public/images"))
 );
+const stockRoute = require("./route/stockRoute");
+app.use("/stock", stockRoute);
 
 app.listen(port, () => {
   console.log(`server started on port ${port}`);

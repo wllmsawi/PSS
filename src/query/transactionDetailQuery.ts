@@ -19,6 +19,7 @@ export const createtransactionDetailQuery = async (
         cart_id,
       },
     });
+    return res;
   } catch (err) {
     throw err;
   }
@@ -37,19 +38,20 @@ export const getAllTransactionDetailQuery = async () => {
   }
 };
 
-export const getTransactionDetailQueryByTransactionIdQuery =
-  async (transaction_id: number) => {
-    try {
-      const res = await prisma.transaction_Detail.findMany({
-        where: {
-          transaction_id: transaction_id,
-        },
-        include: {
-          product: true,
-        },
-      });
-      return res;
-    } catch (err) {
-      throw err;
-    }
-  };
+export const getTransactionDetailQueryByTransactionIdQuery = async (
+  transaction_id: number
+) => {
+  try {
+    const res = await prisma.transaction_Detail.findMany({
+      where: {
+        transaction_id: transaction_id,
+      },
+      include: {
+        product: true,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

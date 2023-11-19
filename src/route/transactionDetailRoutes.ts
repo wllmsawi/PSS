@@ -9,9 +9,6 @@ const router = express.Router();
 
 router.post("/create", createTransactionDetailController);
 router.get("/", getAllTransactionDetailController);
-router.get(
-  "/find",
-  getTransactionDetailQueryByTransactionIdController
-);
+router.get("/find", getTransactionDetailQueryByTransactionIdController);
 
 export = router;
