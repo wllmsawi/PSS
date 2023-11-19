@@ -2,14 +2,16 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const createProductCategoryQuery = async (
-  product_category_name: string
+  product_category_name: any
 ) => {
   try {
     const res = await prisma.product_Category.create({
       data: {
-        product_category_name,
+        product_category_name: product_category_name,
       },
     });
+    console.log(res);
+    return res;
   } catch (err) {
     throw err;
   }
@@ -37,7 +39,6 @@ export const updateProductCategoryQuery = async (
 export const getProductCategoryQuery = async () => {
   try {
     const res = await prisma.product_Category.findMany();
-
     return res;
   } catch (err) {
     throw err;

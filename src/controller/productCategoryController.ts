@@ -21,7 +21,9 @@ export const createProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    throw res.status(500).json({
+      err,
+    });
   }
 };
 

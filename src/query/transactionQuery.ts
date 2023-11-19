@@ -111,12 +111,6 @@ export const updateTransactionQuery = async (
 
 export const groupTransactionByDateQuery = async () => {
   try {
-    // const res = await prisma.transaction.groupBy({
-    //   by: ["date"],
-    //   _avg: {
-    //     total_price: true,
-    //   },
-    // });
     const res =
       await prisma.$queryRaw`SELECT DATE_FORMAT(date, '%Y-%m-%d') AS date, AVG(total_price) AS total
             FROM transaction
