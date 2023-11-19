@@ -119,3 +119,8 @@ model Status {
   status_name String?
   product     Product[]
 }
+
+model Avatar {
+  id    Int    @id @default(autoincrement())
+  image String
+}

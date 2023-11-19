@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { date } from "yup";
+// import { date } from "yup";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +15,7 @@ export const createTransactionQuery = async (
 ): Promise<any> => {
   try {
     const res = await prisma.transaction.create({
-      data:   {
+      data: {
         user_id: user_id,
         total_price: total_price,
         total_qty: total_qty,
