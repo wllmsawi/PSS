@@ -10,13 +10,7 @@ export const createTransactionDetailController = async (
   res: Response
 ) => {
   try {
-    const {
-      transaction_id,
-      product_id,
-      qty,
-      total_price,
-      cart_id,
-    } = req.body;
+    const { transaction_id, product_id, qty, total_price, cart_id } = req.body;
 
     const result = await createTransactionDetailService(
       transaction_id,
@@ -49,19 +43,20 @@ export const getAllTransactionDetailController = async (
   }
 };
 
-export const getTransactionDetailQueryByTransactionIdController =
-  async (req: Request, res: Response) => {
-    try {
-      const { transaction_id } = req.query;
-      const result =
-        await getTransactionDetailQueryByTransactionIdService(
-          Number(transaction_id)
-        );
-      return res.status(200).json({
-        message: "success",
-        data: result,
-      });
-    } catch (err) {
-      throw err;
-    }
-  };
+export const getTransactionDetailQueryByTransactionIdController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { transaction_id } = req.query;
+    const result = await getTransactionDetailQueryByTransactionIdService(
+      Number(transaction_id)
+    );
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};

@@ -49,10 +49,7 @@ export const findProductService = async (
   product_group_id: number | null = null
 ) => {
   try {
-    const res = await findProductQuery(
-      product_name,
-      product_group_id
-    );
+    const res = await findProductQuery(product_name, product_group_id);
     return res;
   } catch (err) {
     throw err;
