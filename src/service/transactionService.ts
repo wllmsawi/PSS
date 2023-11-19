@@ -33,9 +33,7 @@ export const createTransactionService = async (
   }
 };
 
-export const findTransactionService = async (
-  id: number
-) => {
+export const findTransactionService = async (id: number) => {
   try {
     const res = await findTransactionQuery(id);
     return res;
@@ -49,10 +47,7 @@ export const getAllTransactionService = async (
   endDate: Date
 ) => {
   try {
-    const res = await getAllTransactionQuery(
-      startDate,
-      endDate
-    );
+    const res = await getAllTransactionQuery(startDate, endDate);
     return res;
   } catch (err) {
     throw err;
