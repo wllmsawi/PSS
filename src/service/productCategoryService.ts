@@ -3,6 +3,7 @@ import {
   updateProductCategoryQuery,
   getProductCategoryQuery,
   getProductGroupQuery,
+  deleteProductCategoryQuery,
 } from "../query/productCategoryQuery";
 
 export const createProductCategoryService = async (
@@ -45,6 +46,17 @@ export const getProductCategoryService = async () => {
 export const getProductGroupService = async () => {
   try {
     const res = await getProductGroupQuery();
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteProductCategoryService = async (
+  id: number
+) => {
+  try {
+    const res = await deleteProductCategoryQuery(id);
     return res;
   } catch (err) {
     throw err;

@@ -4,6 +4,7 @@ import {
   updateProductCategoryService,
   getProductCategoryService,
   getProductGroupService,
+  deleteProductCategoryService,
 } from "../service/productCategoryService";
 
 export const createProductCategoryController = async (
@@ -20,7 +21,9 @@ export const createProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    throw res.status(500).json({
+      err,
+    });
   }
 };
 
@@ -67,6 +70,22 @@ export const getProductGroupController = async (
     const result = await getProductGroupService();
     return res.status(200).json({
       message: "Success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteProductCategoryController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const result = deleteProductCategoryService(Number(id));
+    return res.status(200).json({
+      message: "Delete Product Category Success",
       data: result,
     });
   } catch (err) {

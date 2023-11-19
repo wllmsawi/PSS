@@ -12,6 +12,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   cors({
     origin: process.env.WHITELISTED_DOMAIN,
@@ -19,6 +21,9 @@ app.use(
 );
 
 const port: number = Number(process.env.PORT) || 8000;
+
+const categoryRoute = require("./route/productCategoryRoute");
+app.use("/category", categoryRoute);
 
 const transactionRoute = require("./route/transactionRoute");
 app.use("/transaction", transactionRoute);
@@ -32,12 +37,16 @@ app.use("/transaction-detail", transactionDetailRoute);
 const productRoute = require("./route/productRoute");
 app.use("/product", productRoute);
 
-const categoryRoute = require("./route/productCategoryRoute");
-app.use("/category", categoryRoute);
-
 const branchRoute = require("./route/branchRoute");
 app.use("/branch", branchRoute);
 
+const statusRoute = require("./route/statusRoute");
+app.use("/status", statusRoute);
+
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "./public/images"))
+);
 const stockRoute = require("./route/stockRoute");
 app.use("/stock", stockRoute);
 

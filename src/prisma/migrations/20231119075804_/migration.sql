@@ -113,7 +113,6 @@ CREATE TABLE `Stock` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-<<<<<<<< HEAD:src/prisma/migrations/20231119075804_/migration.sql
 -- CreateTable
 CREATE TABLE `Status` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -122,8 +121,6 @@ CREATE TABLE `Status` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-========
->>>>>>>> master:src/prisma/migrations/20231116022820_init/migration.sql
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_gender_id_fkey` FOREIGN KEY (`gender_id`) REFERENCES `Gender`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -152,12 +149,9 @@ ALTER TABLE `Product` ADD CONSTRAINT `Product_product_group_id_fkey` FOREIGN KEY
 ALTER TABLE `Product` ADD CONSTRAINT `Product_product_category_id_fkey` FOREIGN KEY (`product_category_id`) REFERENCES `Product_Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-<<<<<<<< HEAD:src/prisma/migrations/20231119075804_/migration.sql
 ALTER TABLE `Product` ADD CONSTRAINT `Product_product_status_id_fkey` FOREIGN KEY (`product_status_id`) REFERENCES `Status`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-========
->>>>>>>> master:src/prisma/migrations/20231116022820_init/migration.sql
 ALTER TABLE `Stock` ADD CONSTRAINT `Stock_branch_id_fkey` FOREIGN KEY (`branch_id`) REFERENCES `Branch`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey

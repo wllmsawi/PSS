@@ -81,6 +81,7 @@ export const createProductController = async (req: Request, res: Response) => {
       product_category_id,
       product_price,
       product_description,
+      product_status_id,
     } = req.body;
     const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
@@ -90,7 +91,8 @@ export const createProductController = async (req: Request, res: Response) => {
       Number(product_category_id),
       newProductPrice,
       req?.file?.filename || "",
-      product_description
+      product_description,
+      Number(product_status_id)
     );
     return res.status(200).json({
       message: "success",
@@ -112,11 +114,11 @@ export const updateProductController = async (req: Request, res: Response) => {
       product_price,
       product_image,
       product_description,
-      // product_status,
+      product_status_id,
     } = req.body;
     const newProductGroupId = Number(product_group_id);
     const newProductPrice = Number(product_price);
-    // const newProductStatus = Boolean(product_status);
+    const newProductStatus = Number(product_status_id);
     const result = await updateProductService(
       newId,
       product_name || product_name,
@@ -124,10 +126,11 @@ export const updateProductController = async (req: Request, res: Response) => {
       Number(product_category_id) || product_category_id,
       newProductPrice || product_price,
       req?.file?.filename || product_image,
-      product_description || product_description
-      // newProductStatus || product_status
+      product_description || product_description,
+      newProductStatus || product_status_id
     );
-    console.log("product_name", product_name);
+    console.log(product_status_id);
+
     return res.status(200).json({
       message: "success",
       data: result,
