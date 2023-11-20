@@ -7,7 +7,10 @@ import {
   updateProductService,
 } from "../service/productService";
 
-export const getProductController = async (req: Request, res: Response) => {
+export const getProductController = async (
+  req: Request,
+  res: Response
+) => {
   const { id } = req.params;
   const newId = Number(id);
   try {
@@ -17,7 +20,8 @@ export const getProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -53,11 +57,15 @@ export const getAllProductController = async (
       result: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const findProductController = async (req: Request, res: Response) => {
+export const findProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { product_name, category_id } = req.query;
     const result = await findProductService(
@@ -69,11 +77,15 @@ export const findProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const createProductController = async (req: Request, res: Response) => {
+export const createProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const {
       product_name,
@@ -99,11 +111,15 @@ export const createProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const updateProductController = async (req: Request, res: Response) => {
+export const updateProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const newId = Number(id);
@@ -136,6 +152,7 @@ export const updateProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
