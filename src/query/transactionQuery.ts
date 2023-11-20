@@ -51,15 +51,23 @@ export const findTransactionQuery = async (id: number) => {
 };
 
 export const getAllTransactionQuery = async (
-  startDate: Date,
-  endDate: Date
+  page: number,
+  pageSize: number,
+  startDate: string,
+  endDate: string
 ) => {
   try {
+    const skip = (page - 1) * pageSize;
+    const take = pageSize;
     const res = await prisma.transaction.findMany({
+      skip,
+      take,
       where: {
         date: {
           gte: new Date(`${startDate}`),
           lte: new Date(`${endDate}`),
+          // gte: new Date(`2023-11-01`),
+          // lte: new Date(`2023-11-30`),
         },
       },
       include: {
