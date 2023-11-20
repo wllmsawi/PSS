@@ -9,10 +9,29 @@ const productStorage = multer.diskStorage({
     file: Express.Multer.File,
     cb: (error: Error | null, destination: string) => void
   ) => {
+    cb(null, path.join(__dirname, "../public/images/product"));
+  },
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, filename: string) => void
+  ) => {
     cb(
       null,
-      path.join(__dirname, "../public/images/product")
+      `product_${date.getFullYear()}_${date.getMonth()}_${date.getDate()}_${
+        file.originalname
+      }`
     );
+  },
+});
+
+const profileStorage = multer.diskStorage({
+  destination: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) => {
+    cb(null, path.join(__dirname, "../public/images/profile"));
   },
   filename: (
     req: Request,
@@ -38,7 +57,7 @@ const fileFilter = (req: Request, file: any, cb: any) => {
   ) {
     cb(null, true);
   } else {
-    cb("file type npt allowrd", false);
+    cb("file type npt allowed", false);
   }
 };
 
@@ -46,8 +65,18 @@ const limits = {
   fileSize: 5120 * 5120,
 };
 
+const limitsProfile = {
+  fileSize: 1024 * 1024,
+};
+
 export const uploadProductFile = multer({
   storage: productStorage,
   fileFilter,
   limits,
 }).single("product_image");
+
+export const uploadProfileFile = multer({
+  storage: profileStorage,
+  fileFilter,
+  limits: limitsProfile,
+}).single("image");
