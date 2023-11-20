@@ -43,10 +43,11 @@ app.use("/branch", branchRoute);
 const statusRoute = require("./route/statusRoute");
 app.use("/status", statusRoute);
 
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "./public/images"))
-);
+const profileRoute = require("./route/profileImageRoute");
+app.use("/profile", profileRoute);
+
+app.use("/uploads", express.static(path.join(__dirname, "./public/images")));
+
 const stockRoute = require("./route/stockRoute");
 app.use("/stock", stockRoute);
 
