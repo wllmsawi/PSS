@@ -7,7 +7,10 @@ import {
   updateProductService,
 } from "../service/productService";
 
-export const getProductController = async (req: Request, res: Response) => {
+export const getProductController = async (
+  req: Request,
+  res: Response
+) => {
   const { id } = req.params;
   const newId = Number(id);
   try {
@@ -17,7 +20,8 @@ export const getProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -35,6 +39,7 @@ export const getAllProductController = async (
     lte,
     product_category_id,
     product_group_id,
+    product_name,
   } = req.query;
   try {
     const result = await getAllProductService(
@@ -46,18 +51,23 @@ export const getAllProductController = async (
       Number(gte) || 0,
       Number(lte) || 0,
       Number(product_category_id),
-      Number(product_group_id)
+      Number(product_group_id),
+      String(product_name)
     );
     return res.status(200).json({
       message: "Find all product success",
       result: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const findProductController = async (req: Request, res: Response) => {
+export const findProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { product_name, category_id } = req.query;
     const result = await findProductService(
@@ -69,11 +79,15 @@ export const findProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const createProductController = async (req: Request, res: Response) => {
+export const createProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const {
       product_name,
@@ -99,11 +113,15 @@ export const createProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
-export const updateProductController = async (req: Request, res: Response) => {
+export const updateProductController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const newId = Number(id);
@@ -136,6 +154,7 @@ export const updateProductController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };

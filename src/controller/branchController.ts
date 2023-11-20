@@ -13,6 +13,7 @@ export const getBranchIdController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };

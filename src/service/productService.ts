@@ -24,7 +24,8 @@ export const getAllProductService = async (
   gte: number,
   lte: number,
   product_category_id: number,
-  product_group_id: number
+  product_group_id: number,
+  product_name: string
 ) => {
   try {
     const res = await getAllProductQuery(
@@ -36,7 +37,8 @@ export const getAllProductService = async (
       gte,
       lte,
       product_category_id,
-      product_group_id
+      product_group_id,
+      product_name
     );
     return res;
   } catch (err) {
@@ -49,7 +51,10 @@ export const findProductService = async (
   product_group_id: number | null = null
 ) => {
   try {
-    const res = await findProductQuery(product_name, product_group_id);
+    const res = await findProductQuery(
+      product_name,
+      product_group_id
+    );
     return res;
   } catch (err) {
     throw err;
