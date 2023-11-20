@@ -21,9 +21,8 @@ export const createProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw res.status(500).json({
-      err,
-    });
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -43,7 +42,8 @@ export const updateProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -58,7 +58,8 @@ export const getProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -73,7 +74,8 @@ export const getProductGroupController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
 
@@ -89,6 +91,7 @@ export const deleteProductCategoryController = async (
       data: result,
     });
   } catch (err) {
-    throw err;
+    if (err instanceof Error)
+      return res.status(500).send(err.message);
   }
 };
