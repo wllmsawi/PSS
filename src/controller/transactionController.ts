@@ -62,12 +62,15 @@ export const getAllTransactionController = async (
   res: Response
 ) => {
   try {
-    const { startDate, endDate } = req.body;
-    const newStartDate = new Date(startDate);
-    const newEndDate = new Date(endDate);
+    const { page, pageSize, startDate, endDate } =
+      req.query;
+    // const newStartDate = new Date(startDate);
+    // const newEndDate = new Date(endDate);
     const result = await getAllTransactionService(
-      newStartDate,
-      newEndDate
+      Number(page),
+      Number(pageSize),
+      String(startDate),
+      String(endDate)
     );
     return res.status(200).json({
       message: "Get All Transaction Succes",
