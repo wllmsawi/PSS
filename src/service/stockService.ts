@@ -7,7 +7,12 @@ export const updateStockService = async (
   quantity: number
 ) => {
   try {
-    const res = await updateStockQuery(id, branch_id, product_id, quantity);
+    const res = await updateStockQuery(
+      id,
+      branch_id,
+      product_id,
+      quantity
+    );
     return res;
   } catch (err) {
     throw err;
